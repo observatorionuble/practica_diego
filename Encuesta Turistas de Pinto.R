@@ -4,10 +4,11 @@ library(dplyr)
 X20211013_Encuesta_a_Turistas_Pinto_modificada
 names(X20211013_Encuesta_a_Turistas_Pinto_modificada)
 
+##ESTADISTICA DESCRIPTIVA##
+
 ## 1.Género##
 genero<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
   select(Género)
-  
 table(genero)
 prop.table(table (genero))*100
 names(which(table(genero)==max(table(genero))))
@@ -427,8 +428,62 @@ table(repetiria)
 names(which(table(repetiria)==max(table(repetiria))))
 
 
+#######CRUCE DE DATOS#########
 
+encuesta<-X20211013_Encuesta_a_Turistas_Pinto_modificada
 
+##EdadxGenero##
+edadxgenero<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Edad, X20211013_Encuesta_a_Turistas_Pinto_modificada$Género)
+edadxgenero
+prop.table(edadxgenero)
+prop.table(edadxgenero,1)
+prop.table(edadxgenero,2)
 
+##Genero y Nivel Educativo
+generoxeducacion<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Género, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuál es su nivel educativo`)
+generoxeducacion
+prop.table(generoxeducacion)
+prop.table(generoxeducacion,1)
+prop.table(generoxeducacion,2)
 
+##edad y noches en la zona
+edadxnoches<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Edad, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuánta noches pernoctó en la comuna`)
+edadxnoches
+prop.table(edadxnoches)
+prop.table(edadxnoches,1)
+prop.table(edadxnoches,2)
 
+##genero y noches en la zona
+generoxnoches<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Género, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuánta noches pernoctó en la comuna`)
+generoxnoches
+prop.table(generoxnoches)
+prop.table(generoxnoches,1)
+prop.table(generoxnoches,2)
+
+##edad y percepcion de alojamiento
+edadxalojamiento<-table(encuesta$Edad, encuesta$`[Alojamiento]`)
+edadxalojamiento
+prop.table(edadxalojamiento)
+prop.table(edadxalojamiento,1)
+prop.table(edadxalojamiento,2)
+
+##genero y percepcion de alojamiento
+generoxalojamiento<-table(encuesta$Género, encuesta$`[Alojamiento]`)
+generoxalojamiento
+prop.table(generoxalojamiento)
+prop.table(generoxalojamiento,1)
+prop.table(generoxalojamiento,2)
+
+##edad y percepcion de la alimentacion
+edadxalimentacion<-table(encuesta$Edad, encuesta$`[Alimentación]`)
+edadxalimentacion
+prop.table(edadxalimentacion)
+prop.table(edadxalimentacion,1)
+prop.table(edadxalimentacion,2)
+
+##genero y percepcion de la alimentacion
+generoxalimentacion<-table(encuesta$Género, encuesta$`[Alimentación]`)
+generoxalimentacion
+prop.table(generoxalimentacion)
+prop.table(generoxalimentacion,1)
+prop.table(generoxalimentacion,2)
