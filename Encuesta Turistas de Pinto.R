@@ -435,55 +435,406 @@ encuesta<-X20211013_Encuesta_a_Turistas_Pinto_modificada
 ##EdadxGenero##
 edadxgenero<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Edad, X20211013_Encuesta_a_Turistas_Pinto_modificada$Género)
 edadxgenero
-prop.table(edadxgenero)
-prop.table(edadxgenero,1)
-prop.table(edadxgenero,2)
+prop.table(edadxgenero)*100
+prop.table(edadxgenero,1)*100
+prop.table(edadxgenero,2)*100
 
 ##Genero y Nivel Educativo
 generoxeducacion<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Género, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuál es su nivel educativo`)
 generoxeducacion
-prop.table(generoxeducacion)
-prop.table(generoxeducacion,1)
-prop.table(generoxeducacion,2)
+prop.table(generoxeducacion)*100
+prop.table(generoxeducacion,1)*100
+prop.table(generoxeducacion,2)*100
 
 ##edad y noches en la zona
 edadxnoches<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Edad, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuánta noches pernoctó en la comuna`)
 edadxnoches
-prop.table(edadxnoches)
-prop.table(edadxnoches,1)
-prop.table(edadxnoches,2)
+prop.table(edadxnoches)*100
+prop.table(edadxnoches,1)*100
+prop.table(edadxnoches,2)*100
 
 ##genero y noches en la zona
 generoxnoches<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Género, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuánta noches pernoctó en la comuna`)
 generoxnoches
-prop.table(generoxnoches)
-prop.table(generoxnoches,1)
-prop.table(generoxnoches,2)
+prop.table(generoxnoches)*100
+prop.table(generoxnoches,1)*100
+prop.table(generoxnoches,2)*100
 
 ##edad y percepcion de alojamiento
 edadxalojamiento<-table(encuesta$Edad, encuesta$`[Alojamiento]`)
 edadxalojamiento
-prop.table(edadxalojamiento)
-prop.table(edadxalojamiento,1)
-prop.table(edadxalojamiento,2)
+prop.table(edadxalojamiento)*100
+prop.table(edadxalojamiento,1)*100
+prop.table(edadxalojamiento,2)*100
 
 ##genero y percepcion de alojamiento
 generoxalojamiento<-table(encuesta$Género, encuesta$`[Alojamiento]`)
 generoxalojamiento
-prop.table(generoxalojamiento)
-prop.table(generoxalojamiento,1)
-prop.table(generoxalojamiento,2)
+prop.table(generoxalojamiento)*100
+prop.table(generoxalojamiento,1)*100
+prop.table(generoxalojamiento,2)*100
 
 ##edad y percepcion de la alimentacion
 edadxalimentacion<-table(encuesta$Edad, encuesta$`[Alimentación]`)
 edadxalimentacion
-prop.table(edadxalimentacion)
-prop.table(edadxalimentacion,1)
-prop.table(edadxalimentacion,2)
+prop.table(edadxalimentacion)*100
+prop.table(edadxalimentacion,1)*100
+prop.table(edadxalimentacion,2)*100
 
 ##genero y percepcion de la alimentacion
 generoxalimentacion<-table(encuesta$Género, encuesta$`[Alimentación]`)
 generoxalimentacion
-prop.table(generoxalimentacion)
-prop.table(generoxalimentacion,1)
-prop.table(generoxalimentacion,2)
+prop.table(generoxalimentacion)*100
+prop.table(generoxalimentacion,1)*100
+prop.table(generoxalimentacion,2)*100
+
+##edad y percepcion del trasporte
+edadxtrasporte<-table(encuesta$Edad, encuesta$`[Transporte]`)
+edadxtrasporte
+prop.table(edadxtrasporte)*100
+prop.table(edadxtrasporte,1)*100
+prop.table(edadxtrasporte,2)*100
+
+##genero y percepcion del trasporte
+generoxtrasporte<-table(encuesta$Género, encuesta$`[Transporte]`)
+generoxtrasporte
+prop.table(generoxtrasporte)*100
+prop.table(generoxtrasporte,1)*100
+prop.table(generoxtrasporte,2)*100
+
+##edad y persepcion de los servicios complementarios
+edadxservicios<-table(encuesta$Edad, encuesta$`[Servicios complementarios]`)
+edadxservicios
+prop.table(edadxservicios)*100
+prop.table(edadxservicios,1)*100
+prop.table(edadxservicios,2)*100
+
+##genero y percepcion de los servicios complementarios
+generoxservicios<-table(encuesta$Género, encuesta$`[Servicios complementarios]`)
+generoxservicios
+prop.table(generoxservicios)*100
+prop.table(generoxservicios,1)*100
+prop.table(generoxservicios,2)*100
+
+##edad y percepcion de la vida nocturna
+edadxvidanocturna<-table(encuesta$Edad, encuesta$`[Vida nocturna]`)
+edadxvidanocturna
+prop.table(edadxvidanocturna)*100
+prop.table(edadxvidanocturna,1)*100
+prop.table(edadxvidanocturna,2)*100
+
+##genero y percepcion de la vida nocturna
+generoxvidanocturna<-table(encuesta$Género, encuesta$`[Vida nocturna]`)
+generoxvidanocturna
+prop.table(generoxvidanocturna)*100
+prop.table(generoxvidanocturna,1)*100
+prop.table(generoxvidanocturna,2)*100
+
+##edad y percepcion del comercio 
+edadxcomercio<-table(encuesta$Edad, encuesta$`[Comercio]`)
+edadxcomercio
+prop.table(edadxcomercio)*100
+prop.table(edadxcomercio,1)*100
+prop.table(edadxcomercio,2)*100
+
+##genero y percepcion del comercio
+generoxcomercio<-table(encuesta$Género, encuesta$`[Comercio]`)
+generoxcomercio
+prop.table(generoxcomercio)*100
+prop.table(generoxcomercio,1)*100
+prop.table(generoxcomercio,2)*100
+
+##edad y actividades programdas
+edadxactividadesprogramadas<-table(encuesta$Edad, encuesta$`[Actividades programadas por las instituciones de la comuna]`)
+edadxactividadesprogramadas
+prop.table(edadxactividadesprogramadas)*100
+prop.table(edadxactividadesprogramadas,1)*100
+prop.table(edadxactividadesprogramadas,2)*100
+
+##genero y actividades programadas
+generoxactividadesprogramadas<-table(encuesta$Género, encuesta$`[Actividades programadas por las instituciones de la comuna]`)
+generoxactividadesprogramadas
+prop.table(generoxactividadesprogramadas)*100
+prop.table(generoxactividadesprogramadas,1)*100
+prop.table(generoxactividadesprogramadas,2)*100
+
+##edad y estado de los caminos
+edadxestadocaminos<-table(encuesta$Edad, encuesta$`[Estado de caminos]`)
+edadxestadocaminos
+prop.table(edadxestadocaminos)*100
+prop.table(edadxestadocaminos,1)*100
+prop.table(edadxestadocaminos,2)*100
+
+##genero y estado de los caminos
+generoxestadocaminos<-table(encuesta$Género, encuesta$`[Estado de caminos]`)
+generoxestadocaminos
+prop.table(generoxestadocaminos)*100
+prop.table(generoxestadocaminos,1)*100
+prop.table(generoxestadocaminos,2)*100
+
+##edad y señalizacion vial 
+edadxseñalizacionvial<-table(encuesta$Edad, encuesta$`[Señalización vial]`)
+edadxseñalizacionvial
+prop.table(edadxseñalizacionvial)*100
+prop.table(edadxseñalizacionvial,1)*100
+prop.table(edadxseñalizacionvial,2)*100
+
+##genero y señalizaicon vial 
+generoxseñalizacionvial<-table(encuesta$Género, encuesta$`[Señalización vial]`)
+generoxseñalizacionvial
+prop.table(generoxseñalizacionvial)*100
+prop.table(generoxseñalizacionvial,1)*100
+prop.table(generoxseñalizacionvial,2)*100
+
+##edad y señaletica turistuca
+edadxseñaleticaturistica<-table(encuesta$Edad, encuesta$`[Señalética turística]`)
+edadxseñaleticaturistica
+prop.table(edadxseñaleticaturistica)*100
+prop.table(edadxseñaleticaturistica,1)*100
+prop.table(edadxseñaleticaturistica,2)*100
+
+##genero y señalitca turistica
+generoxseñaleticaturistica<-table(encuesta$Género, encuesta$`[Señalética turística]`)
+generoxseñaleticaturistica
+prop.table(edadxseñaleticaturistica)*100
+prop.table(edadxseñaleticaturistica,1)*100
+prop.table(edadxseñaleticaturistica,2)*100
+
+##edad y acceso para persoans con movilidad limitada
+edadxmovilidadlimitada<-table(encuesta$Edad, encuesta$`[Accesos para personas con movilidad limitada]`)
+edadxmovilidadlimitada
+prop.table(edadxmovilidadlimitada)*100
+prop.table(edadxmovilidadlimitada,1)*100
+prop.table(edadxmovilidadlimitada,2)*100
+
+##genero y acceso para personas con movilidad limitada
+generoxmovilidadlimitada<-table(encuesta$Género, encuesta$`[Accesos para personas con movilidad limitada]`)
+generoxmovilidadlimitada
+prop.table(generoxmovilidadlimitada)*100
+prop.table(generoxmovilidadlimitada,1)*100
+prop.table(generoxmovilidadlimitada,2)*100
+
+##edad y paisaje natural
+edadxpaisaje<-table(encuesta$Edad, encuesta$`[Paisaje natural]`)
+edadxpaisaje
+prop.table(edadxpaisaje)*100
+prop.table(edadxpaisaje,1)*100
+prop.table(edadxpaisaje,2)*100
+
+##genero y paisaje natural
+generoxpaisaje<-table(encuesta$Género, encuesta$`[Paisaje natural]`)
+generoxpaisaje
+prop.table(generoxpaisaje)*100
+prop.table(generoxpaisaje,1)*100
+prop.table(generoxpaisaje,2)*100
+
+##edad y limpieza del entorno
+edadxlimpieza<-table(encuesta$Edad, encuesta$`[Limpieza del entorno]`)
+edadxlimpieza
+prop.table(edadxlimpieza)*100
+prop.table(edadxlimpieza,1)*100
+prop.table(edadxlimpieza,2)*100
+
+##genero y limplieza del entorno 
+generoxlimpieza<-table(encuesta$Género, encuesta$`[Limpieza del entorno]`)
+generoxlimpieza
+prop.table(generoxlimpieza)*100
+prop.table(generoxlimpieza,1)*100
+prop.table(generoxlimpieza,2)*100
+
+##edad y mantencion de infrastructura publica
+edadxmantencion<-table(encuesta$Edad, encuesta$`[Mantención de infraestructura pública]`)
+edadxmantencion
+prop.table(edadxmantencion)*100
+prop.table(edadxmantencion,1)*100
+prop.table(edadxmantencion,2)*100
+
+##genero y mantencion de la infrastructura publica
+generoxmantencion<-table(encuesta$Género, encuesta$`[Mantención de infraestructura pública]`)
+generoxmantencion
+prop.table(generoxmantencion)*100
+prop.table(generoxmantencion,1)*100
+prop.table(generoxmantencion,2)*100
+
+##edad y percepcion de la seguridad en la comuna
+edadxseguridad<-table(encuesta$Edad, encuesta$`[Percepción de seguridad en la comuna]`)
+edadxseguridad
+prop.table(edadxseguridad)*100
+prop.table(edadxseguridad,1)*100
+prop.table(edadxseguridad,2)*100
+
+##genero y percepcion de la seguridad en la comuna
+generoxseguridad<-table(encuesta$Género, encuesta$`[Percepción de seguridad en la comuna]`)
+generoxseguridad
+prop.table(generoxseguridad)*100
+prop.table(generoxseguridad,1)*100
+prop.table(generoxseguridad,2)*100
+
+##edad y servicios de salud
+edadxserviciossalud<-table(encuesta$Edad, encuesta$`[Servicios de salud]`)
+edadxserviciossalud
+prop.table(edadxserviciossalud)*100
+prop.table(edadxserviciossalud,1)*100
+prop.table(edadxserviciossalud,2)*100
+
+##genero y servicios de salud
+generoxserviciossalud<-table(encuesta$Género, encuesta$`[Servicios de salud]`)
+generoxserviciossalud
+prop.table(generoxserviciossalud)*100
+prop.table(generoxserviciossalud,1)*100
+prop.table(generoxserviciossalud,2)*100
+
+##edad y actividades agricolas
+edadxagricolas<-table(encuesta$Edad, encuesta$`[Actividades agrícolas]`)
+edadxagricolas
+prop.table(edadxagricolas)*100
+prop.table(edadxagricolas,1)*100
+prop.table(edadxagricolas,2)*100
+
+##genero y actividades agricolas
+generoxagricolas<-table(encuesta$Género, encuesta$`[Actividades agrícolas]`)
+generoxagricolas
+prop.table(generoxagricolas)*100
+prop.table(generoxagricolas,1)*100
+prop.table(generoxagricolas,2)*100
+
+##edad y participacor en fiestas costumbristas
+edadxcostumbristas<-table(encuesta$Edad, encuesta$`[Participar en fiestas costumbristas]`)
+edadxcostumbristas
+prop.table(edadxcostumbristas)*100
+prop.table(edadxcostumbristas,1)*100
+prop.table(edadxcostumbristas,2)*100
+
+##genero y participar en fistas costumbristas
+generoxcostumbrista<-table(encuesta$Género, encuesta$`[Participar en fiestas costumbristas]`)
+generoxcostumbrista
+prop.table(generoxcostumbrista)*100
+prop.table(generoxcostumbrista,1)*100
+prop.table(generoxcostumbrista,2)*100
+
+##edad y vestir trajes tradicionales
+edadxtrajes<-table(encuesta$Edad, encuesta$`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`)
+edadxtrajes
+prop.table(edadxtrajes)*100
+prop.table(edadxtrajes,1)*100
+prop.table(edadxtrajes,2)*100
+
+##genero y vestir trajes tradicionales
+generoxvestir<-table(encuesta$Género, encuesta$`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`)
+generoxvestir
+prop.table(generoxvestir)*100
+prop.table(generoxvestir,1)*100
+prop.table(generoxvestir,2)*100
+
+##edad y caminatas o ciclismo
+edadxcamianatas<-table(encuesta$Edad, encuesta$`[Caminatas y/o ciclísmo]`)
+edadxcamianatas
+prop.table(edadxcamianatas)*100
+prop.table(edadxcamianatas,1)*100
+prop.table(edadxcamianatas,2)*100
+
+##genero y caminatas o ciclismo 
+generoxcaminatas<-table(encuesta$Género, encuesta$`[Caminatas y/o ciclísmo]`)
+generoxcaminatas
+prop.table(generoxcaminatas)*100
+prop.table(generoxcaminatas,1)*100
+prop.table(generoxcaminatas,2)*100
+
+##edad y pesca deportica
+edadxpesca<-table(encuesta$Edad, encuesta$`[Pesca deportiva (Catch and release)]`)
+edadxpesca
+prop.table(edadxpesca)*100
+prop.table(edadxpesca,1)*100
+prop.table(edadxpesca,2)*100
+
+##genero y pesca deportiva
+generoxpesca<-table(encuesta$Género, encuesta$`[Pesca deportiva (Catch and release)]`)
+generoxpeca
+prop.table(generoxpesca)*100
+prop.table(generoxpesca,1)*100
+prop.table(generoxpesca,2)*100
+
+##edad y practicar deportes nauticos 
+edadxnauticos<-table(encuesta$Edad, encuesta$`[Práctica deportes naúticos]`)
+edadxnauticos
+prop.table(edadxnauticos)*100
+prop.table(edadxnauticos,1)*100
+prop.table(edadxnauticos,2)*100
+
+##genero y practicar deportes nauticos
+generoxnauticos<-table(encuesta$Género, encuesta$`[Práctica deportes naúticos]`)
+generoxnauticos
+prop.table(generoxnauticos)*100
+prop.table(generoxnauticos,1)*100
+prop.table(generoxnauticos,2)*100
+
+##edad y probar platos de la zona
+edadxplatos<-table(encuesta$Edad, encuesta$`[Probar platos típicos o exclusivos de la zona]`)
+edadxplatos
+prop.table(edadxplatos)*100
+prop.table(edadxplatos,1)*100
+prop.table(edadxplatos,2)*100
+
+##genero y probar platos de la zona
+generoxplatos<-table(encuesta$Género, encuesta$`[Probar platos típicos o exclusivos de la zona]`)
+generoxplatos
+prop.table(generoxplatos)*100
+prop.table(generoxplatos,1)*100
+prop.table(generoxplatos,2)*100
+
+##edad y aprender a preparar platos tipicos de la zona
+edadxaprender<-table(encuesta$Edad, encuesta$`[Aprender a prepara platos típicos de la zona]`)
+edadxaprender
+prop.table(edadxaprender)*100
+prop.table(edadxaprender,1)*100
+prop.table(edadxaprender,2)*100
+
+##genero y aprender a preparar platos tipicos de la zona
+generoxaprender<-table(encuesta$Género, encuesta$`[Aprender a prepara platos típicos de la zona]`)
+generoxaprender
+prop.table(generoxaprender)*100
+prop.table(generoxaprender,1)*100
+prop.table(generoxaprender,2)*100
+
+##edad y participar en talleres de artesania
+edadxtalleres<-table(encuesta$Edad, encuesta$`[Participar en talleres de artesanía]`)
+edadxtalleres
+prop.table(edadxtalleres)*100
+prop.table(edadxtalleres,1)*100
+prop.table(edadxtalleres,2)*100
+
+##genero y participar en talleres de artesania 
+generoxtalleres<-table(encuesta$Género, encuesta$`[Participar en talleres de artesanía]`)
+generoxtalleres
+prop.table(generoxtalleres)*100
+prop.table(generoxtalleres,1)*100
+prop.table(generoxtalleres,2)*100
+
+##edad y dormir en la casa de una famila de la comunidad
+edadxdormir<-table(encuesta$Edad, encuesta$`[Dormir en casa de una familia de la comunidad]`)
+edadxdormir
+prop.table(edadxdormir)*100
+prop.table(edadxdormir,1)*100
+prop.table(edadxdormir,2)*100
+
+##genero y dormir en la casa de una famila de la comunidad
+generoxdormir<-table(encuesta$Género, encuesta$`[Dormir en casa de una familia de la comunidad]`)
+generoxdormir
+prop.table(generoxdormir)*100
+prop.table(generoxdormir,1)*100
+prop.table(generoxdormir,2)*100
+
+##edad y ¿Repetiria su visita?
+edadxrepetiria<-table(encuesta$Edad, encuesta$`¿Repetiría su visita`)
+edadxrepetiria
+prop.table(edadxrepetiria)*100
+prop.table(edadxrepetiria,1)*100
+prop.table(edadxrepetiria,2)*100
+
+##genero y ¿repetiria su visita?
+generoxrepetiria<-table(encuesta$Género, encuesta$`¿Repetiría su visita`)
+generoxrepetiria
+prop.table(generoxrepetiria)*100
+prop.table(generoxrepetiria,1)*100
+prop.table(generoxrepetiria,2)*100
+
