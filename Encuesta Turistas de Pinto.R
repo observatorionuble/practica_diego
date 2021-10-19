@@ -989,12 +989,6 @@ tab_df(nocturna, file = "cuadro_vida_nocturna.doc")
 
 
 ##35. [Comercio]##
-comercio<- encuesta_turistas %>%
-  select("[Comercio]")%>%
-  filter("[Comercio]"!="N/A")
-table(comercio)
-(prop.table(table (comercio)))*100
-names(which(table(comercio)==max(table(comercio))))
 
 comercio = encuesta_turistas %>%
   group_by(`[Comercio]`) %>%
@@ -1032,102 +1026,445 @@ tab_df(comercio, file = "cuadro_comercio.doc")
 
 
 ##36. [Actividades programadas por las instituciones de la comuna]##
-actividades<- encuesta_turistas %>%
-  select("[Actividades programadas por las instituciones de la comuna]")
-table(actividades)
-(prop.table(table (actividades)))*100
-names(which(table(actividades)==max(table(actividades))))
+
+actividades = encuesta_turistas %>%
+  group_by(`[Actividades programadas por las instituciones de la comuna]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_36.1 = actividades %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Actividades programadas por las instituciones de la comuna]`, y = prop, fill = `[Actividades programadas por las instituciones de la comuna]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_36.1.png", p_36.1)
+
+# Gráfico de torta
+p_36.2 = actividades %>% 
+  arrange(desc(`[Actividades programadas por las instituciones de la comuna]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Actividades programadas por las instituciones de la comuna]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_36.2.png", p_35.2)
+
+#Tabla word: 
+tab_df(actividades, file = "cuadro_actividades_programadas_por_la_comuna.doc")
+
+
+
 
 
 ##37. [Estado de caminos]##
-caminos<- encuesta_turistas %>%
-  select("[Estado de caminos]")%>%
-  filter("[Estado de caminos]"!="N/A")
-table(caminos)
-(prop.table(table (caminos)))*100
-names(which(table(caminos)==max(table(caminos))))
+
+caminos = encuesta_turistas %>%
+  group_by(`[Estado de caminos]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_37.1 = caminos %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Estado de caminos]`, y = prop, fill = `[Estado de caminos]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_37.1.png", p_37.1)
+
+# Gráfico de torta
+p_37.2 = caminos %>% 
+  arrange(desc(`[Estado de caminos]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Estado de caminos]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_37.2.png", p_37.2)
+
+#Tabla word: 
+tab_df(caminos, file = "cuadro_estado_de_los_caminos.doc")
+
+
 
 
 ##38. [Señalización vial]##
-señalizacion<- encuesta_turistas %>%
-  select("[Señalización vial]")%>%
-  filter("[Señalización vial]"!="N/A")
-table(señalizacion)
-(prop.table(table (señalizacion)))*100
-names(which(table(señalizacion)==max(table(señalizacion))))
+
+señalizacion = encuesta_turistas %>%
+  group_by(`[Señalización vial]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_38.1 = señalizacion %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Señalización vial]`, y = prop, fill = `[Señalización vial]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_38.1.png", p_38.1)
+
+# Gráfico de torta
+p_38.2 = señalizacion %>% 
+  arrange(desc(`[Señalización vial]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Señalización vial]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_38.2.png", p_38.2)
+
+#Tabla word: 
+tab_df(señalizacion, file = "cuadro_señalizacion_vial.doc")
+
+
+
 
 ##39. [Señalética turística]##
-señaleticat<- encuesta_turistas %>%
-  select("[Señalética turística]")%>%
-  filter("[Señalética turística]"!="N/A")
-table(señaleticat)
-(prop.table(table (señaleticat)))*100
-names(which(table(señaleticat)==max(table(señaleticat))))
+
+señaleticat= encuesta_turistas %>%
+  group_by(`[Señalética turística]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_39.1 = señaleticat %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Señalética turística]`, y = prop, fill = `[Señalética turística]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_39.1.png", p_39.1)
+
+# Gráfico de torta
+p_39.2 = señaleticat %>% 
+  arrange(desc(`[Señalética turística]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Señalética turística]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_39.2.png", p_39.2)
+
+#Tabla word: 
+tab_df(señaleticat, file = "cuadro_señaleticas_turisticas.doc")
+
+
 
 
 ##40. [Accesos para personas con movilidad limitada]##
-accesos<- encuesta_turistas %>%
-  select("[Accesos para personas con movilidad limitada]")%>%
-  filter("[Accesos para personas con movilidad limitada]"!="N/A")
-table(accesos)
-(prop.table(table (accesos)))*100
-names(which(table(accesos)==max(table(accesos))))
+
+accesos= encuesta_turistas %>%
+  group_by(`[Accesos para personas con movilidad limitada]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n)) %>%
+  filter(`[Accesos para personas con movilidad limitada]`!="N/A")
+
+# Gráfico de barras
+p_40.1 = accesos %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Accesos para personas con movilidad limitada]`, y = prop, fill = `[Accesos para personas con movilidad limitada]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_40.1.png", p_40.1)
+
+# Gráfico de torta
+p_40.2 = accesos %>% 
+  arrange(desc(`[Accesos para personas con movilidad limitada]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Accesos para personas con movilidad limitada]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_40.2.png", p_40.2)
+
+#Tabla word: 
+tab_df(accesos, file = "cuadro_accesos_para_discapacitados.doc")
 
 
 ##41. [Paisaje natural]##
-paisaje<- encuesta_turistas %>%
-  select("[Paisaje natural]")
-table(paisaje)
-(prop.table(table (paisaje)))*100
-names(which(table(paisaje)==max(table(paisaje))))
+
+paisaje= encuesta_turistas %>%
+  group_by(`[Paisaje natural]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_41.1 = paisaje %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Paisaje natural]`, y = prop, fill = `[Paisaje natural]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_41.1.png", p_41.1)
+
+# Gráfico de torta
+p_41.2 = paisaje %>% 
+  arrange(desc(`[Paisaje natural]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Paisaje natural]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_41.2.png", p_41.2)
+
+#Tabla word: 
+tab_df(paisaje, file = "cuadro_paisaje_natural.doc")
+
+
 
 
 ##42. [Amabilidad de los residentes]##
-amabilidad<- encuesta_turistas %>%
-  select("[Amabilidad de los residentes]")
-table(amabilidad)
-(prop.table(table (amabilidad)))*100
-names(which(table(amabilidad)==max(table(amabilidad))))
+
+amabilidad= encuesta_turistas %>%
+  group_by(`[Amabilidad de los residentes]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_42.1 = amabilidad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Amabilidad de los residentes]`, y = prop, fill = `[Amabilidad de los residentes]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_42.1.png", p_42.1)
+
+# Gráfico de torta
+p_42.2 = amabilidad %>% 
+  arrange(desc(`[Amabilidad de los residentes]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Amabilidad de los residentes]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_42.2.png", p_42.2)
+
+#Tabla word: 
+tab_df(amabilidad, file = "cuadro_amabilidad_de_los_residentes.doc")
+
+
 
 
 ##43. [Relación Precio - Calidad] revisar##
-precio_calidad<- encuesta_turistas %>%
-  select("[Relación Precio - Calidad]")
-table(precio_calidad)
-(prop.table(table (precio_calidad)))*100
-names(which(table(precio_calidad)==max(table(precio_calidad))))
+
+precio_calidad= encuesta_turistas %>%
+  group_by(`[Relación Precio - Calidad]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_43.1 = precio_calidad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Relación Precio - Calidad]`, y = prop, fill = `[Relación Precio - Calidad]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_43.1.png", p_43.1)
+
+# Gráfico de torta
+p_43.2 = precio_calidad %>% 
+  arrange(desc(`[Relación Precio - Calidad]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Relación Precio - Calidad]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_43.2.png", p_43.2)
+
+#Tabla word: 
+tab_df(precio_calidad, file = "cuadro_precio_calidad.doc")
 
 
 ##44. [Limpieza del entorno]##
-limpieza<- encuesta_turistas %>%
-  select("[Limpieza del entorno]")
-table(limpieza)
-(prop.table(table (limpieza)))*100
-names(which(table(limpieza)==max(table(limpieza))))
+
+limpieza= encuesta_turistas %>%
+  group_by(`[Limpieza del entorno]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_44.1 = limpieza %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Limpieza del entorno]`, y = prop, fill = `[Limpieza del entorno]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_44.1.png", p_44.1)
+
+# Gráfico de torta
+p_44.2 = limpieza %>% 
+  arrange(desc(`[Limpieza del entorno]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Limpieza del entorno]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_44.2.png", p_44.2)
+
+#Tabla word: 
+tab_df(limpieza, file = "cuadro_limpieza_del_entorno.doc")
+
+
 
 
 ##45. [Mantención de infraestructura pública]##
-mantecion<- encuesta_turistas %>%
-  select("[Mantención de infraestructura pública]")
-table(mantecion)
-(prop.table(table (mantecion)))*100
-names(which(table(mantecion)==max(table(mantecion))))
+
+mantencion= encuesta_turistas %>%
+  group_by(`[Mantención de infraestructura pública]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_45.1 = mantencion %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Mantención de infraestructura pública]`, y = prop, fill = `[Mantención de infraestructura pública]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_45.1.png", p_45.1)
+
+# Gráfico de torta
+p_45.2 = mantencion %>% 
+  arrange(desc(`[Mantención de infraestructura pública]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Mantención de infraestructura pública]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_45.2.png", p_45.2)
+
+#Tabla word: 
+tab_df(mantencion, file = "cuadro_mantencion_de_infraestructura_publica.doc")
+
+
 
 
 ##46. [Percepción de seguridad en la comuna]##
-seguridad<- encuesta_turistas %>%
-  select("[Percepción de seguridad en la comuna]")
-table(seguridad)
-(prop.table(table (seguridad)))*100
-names(which(table(seguridad)==max(table(seguridad)))) 
+
+seguridad= encuesta_turistas %>%
+  group_by(`[Percepción de seguridad en la comuna]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_46.1 = seguridad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Percepción de seguridad en la comuna]`, y = prop, fill = `[Percepción de seguridad en la comuna]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_46.1.png", p_46.1)
+
+# Gráfico de torta
+p_46.2 = seguridad %>% 
+  arrange(desc(`[Percepción de seguridad en la comuna]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Percepción de seguridad en la comuna]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_46.2.png", p_46.2)
+
+#Tabla word: 
+tab_df(seguridad, file = "cuadro_percepcion_de_seguridad.doc")
+
+
 
 
 ##47. [Servicios de salud]##
-salud<- encuesta_turistas %>%
-  select("[Servicios de salud]")
-table(salud)
-(prop.table(table (salud)))*100
-names(which(table(salud)==max(table(salud))))
+
+salud= encuesta_turistas %>%
+  group_by(`[Servicios de salud]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_47.1 = seguridad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Servicios de salud]`, y = prop, fill = `[Servicios de salud]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_47.1.png", p_47.1)
+
+# Gráfico de torta
+p_47.2 = salud %>% 
+  arrange(desc(`[Servicios de salud]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Servicios de salud]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_47.2.png", p_47.2)
+
+#Tabla word: 
+tab_df(seguridad, file = "cuadro_servicios_de_salud.doc")
+
+
 
 
 ##48 49 50 stand by
@@ -1135,89 +1472,415 @@ names(which(table(salud)==max(table(salud))))
 
 
 ##51. [Actividades agrícolas]##
-agricolas<- encuesta_turistas %>%
-  select("[Actividades agrícolas]")
-table(agricolas)
-(prop.table(table (agricolas)))*100
-names(which(table(agricolas)==max(table(agricolas))))
+
+agricolas= encuesta_turistas %>%
+  group_by(`[Actividades agrícolas]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_51.1 = seguridad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Actividades agrícolas]`, y = prop, fill = `[Actividades agrícolas]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_51.1.png", p_51.1)
+
+# Gráfico de torta
+p_51.2 = agricolas %>% 
+  arrange(desc(`[Actividades agrícolas]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Actividades agrícolas]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_51.2.png", p_51.2)
+
+#Tabla word: 
+tab_df(agricolas, file = "cuadro_actividades_agricolas.doc")
+
+
+
 
 ##52. [Participar en fiestas costumbristas]##
-costumbristas<- encuesta_turistas %>%
-  select("[Participar en fiestas costumbristas]")
-table(costumbristas)
-(prop.table(table (costumbristas)))*100
-names(which(table(costumbristas)==max(table(costumbristas))))
+
+costumbristas= encuesta_turistas %>%
+  group_by(`[Participar en fiestas costumbristas]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_52.1 = costumbristas %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Participar en fiestas costumbristas]`, y = prop, fill = `[Participar en fiestas costumbristas]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_52.1.png", p_52.1)
+
+# Gráfico de torta
+p_52.2 = costumbristas %>% 
+  arrange(desc(`[Participar en fiestas costumbristas]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Participar en fiestas costumbristas]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_52.2.png", p_52.2)
+
+#Tabla word: 
+tab_df(costumbristas, file = "cuadro_participar_en_fiestas_costumbristas.doc")
 
 
-##52. [Vestir trajes tradicionales (aunque se para una sessión de fotos)]##
-trajes<- encuesta_turistas %>%
-  select("[Vestir trajes tradicionales (aunque se para una sessión de fotos)]")
-table(trajes)
-(prop.table(table (trajes)))*100
-names(which(table(trajes)==max(table(trajes))))
 
 
-##53. [Caminatas y/o ciclísmo]##
-caminata_ciclismo<- encuesta_turistas %>%
-  select("[Caminatas y/o ciclísmo]")
-table(caminata_ciclismo)
-(prop.table(table (caminata_ciclismo)))*100
-names(which(table(caminata_ciclismo)==max(table(caminata_ciclismo))))
+##53. [Vestir trajes tradicionales (aunque se para una sessión de fotos)]##
+
+trajes= encuesta_turistas %>%
+  group_by(`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_53.1 = trajes %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`, y = prop, fill = `[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_53.1.png", p_53.1)
+
+# Gráfico de torta
+p_53.2 = trajes %>% 
+  arrange(desc(`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_53.2.png", p_53.2)
+
+#Tabla word: 
+tab_df(trajes, file = "cuadro_vestir_trajes_tradicionales.doc")
 
 
-##54. [Pesca deportiva (Catch and release)]##
-pesca<- encuesta_turistas %>%
-  select("[Pesca deportiva (Catch and release)]")
-table(pesca)
-(prop.table(table (pesca)))*100
-names(which(table(pesca)==max(table(pesca))))
 
 
-##55. [Práctica deportes naúticos]
-nauticos<- encuesta_turistas %>%
-  select("[Práctica deportes naúticos]")
-table(nauticos)
-(prop.table(table (nauticos)))*100
-names(which(table(nauticos)==max(table(nauticos))))
+##54. [Caminatas y/o ciclísmo]##
+
+caminata_ciclismo= encuesta_turistas %>%
+  group_by(`[Caminatas y/o ciclísmo]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_54.1 = caminata_ciclismo %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Caminatas y/o ciclísmo]`, y = prop, fill = `[Caminatas y/o ciclísmo]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_54.1.png", p_54.1)
+
+# Gráfico de torta
+p_54.2 = caminata_ciclismo %>% 
+  arrange(desc(`[Caminatas y/o ciclísmo]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Caminatas y/o ciclísmo]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_54.2.png", p_54.2)
+
+#Tabla word: 
+tab_df(caminata_ciclismo, file = "cuadro_caminata_ciclismo.doc")
 
 
-##56. [Probar platos típicos o exclusivos de la zona]##
-platos<- encuesta_turistas %>%
-  select("[Probar platos típicos o exclusivos de la zona]")
-table(platos)
-(prop.table(table (platos)))*100
-names(which(table(platos)==max(table(platos))))
 
 
-##57. [Aprender a prepara platos típicos de la zona]##
-preparar<- encuesta_turistas %>%
-  select("[Aprender a prepara platos típicos de la zona]")
-table(preparar)
-(prop.table(table (preparar)))*100
-names(which(table(preparar)==max(table(preparar))))
+##55. [Pesca deportiva (Catch and release)]##
 
-##58. [Participar en talleres de artesanía]##
-talleres<- encuesta_turistas %>%
-  select("[Participar en talleres de artesanía]")
-table(talleres)
-(prop.table(table (talleres)))*100
-names(which(table(talleres)==max(table(talleres))))
+pesca= encuesta_turistas %>%
+  group_by(`[Pesca deportiva (Catch and release)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_55.1 = pesca %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Pesca deportiva (Catch and release)]`, y = prop, fill = `[Pesca deportiva (Catch and release)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_55.1.png", p_55.1)
+
+# Gráfico de torta
+p_55.2 = pesca %>% 
+  arrange(desc(`[Pesca deportiva (Catch and release)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Pesca deportiva (Catch and release)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_55.2.png", p_55.2)
+
+#Tabla word: 
+tab_df(pesca, file = "cuadro_pesca_deportiva.doc")
 
 
-##59. [Dormir en casa de una familia de la comunidad]##
-dormir<- encuesta_turistas %>%
-  select("[Dormir en casa de una familia de la comunidad]")
-table(dormir)
-(prop.table(table (dormir)))*100
-names(which(table(dormir)==max(table(dormir))))
 
 
-##60. ¿Repetiría su visita##
+##56. [Práctica deportes naúticos]
+
+nauticos= encuesta_turistas %>%
+  group_by(`[Práctica deportes naúticos]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_56.1 = nauticos %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Práctica deportes naúticos]`, y = prop, fill = `[Práctica deportes naúticos]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_56.1.png", p_56.1)
+
+# Gráfico de torta
+p_56.2 = nauticos %>% 
+  arrange(desc(`[Práctica deportes naúticos]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Práctica deportes naúticos]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_56.2.png", p_56.2)
+
+#Tabla word: 
+tab_df(nauticos, file = "cuadro_deportes_nauticos.doc")
+
+
+
+
+##57. [Probar platos típicos o exclusivos de la zona]##
+
+platos= encuesta_turistas %>%
+  group_by(`[Probar platos típicos o exclusivos de la zona]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_57.1 = platos %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Probar platos típicos o exclusivos de la zona]`, y = prop, fill = `[Probar platos típicos o exclusivos de la zona]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_57.1.png", p_57.1)
+
+# Gráfico de torta
+p_57.2 = platos %>% 
+  arrange(desc(`[Probar platos típicos o exclusivos de la zona]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Probar platos típicos o exclusivos de la zona]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_57.2.png", p_57.2)
+
+#Tabla word: 
+tab_df(platos, file = "cuadro_probar_platos_tipicos.doc")
+
+
+
+
+##58. [Aprender a prepara platos típicos de la zona]##
+
+preparar= encuesta_turistas %>%
+  group_by(`[Aprender a prepara platos típicos de la zona]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_58.1 = preparar %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Aprender a prepara platos típicos de la zona]`, y = prop, fill = `[Aprender a prepara platos típicos de la zona]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_58.1.png", p_58.1)
+
+# Gráfico de torta
+p_58.2 = preparar %>% 
+  arrange(desc(`[Aprender a prepara platos típicos de la zona]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Aprender a prepara platos típicos de la zona]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_58.2.png", p_58.2)
+
+#Tabla word: 
+tab_df(preparar, file = "cuadro_preparar_platos_tipicos.doc")
+
+
+
+
+##59. [Participar en talleres de artesanía]##
+
+talleres= encuesta_turistas %>%
+  group_by(`[Participar en talleres de artesanía]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_59.1 = talleres %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Participar en talleres de artesanía]`, y = prop, fill = `[Participar en talleres de artesanía]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_59.1.png", p_59.1)
+
+# Gráfico de torta
+p_59.2 = talleres %>% 
+  arrange(desc(`[Participar en talleres de artesanía]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Participar en talleres de artesanía]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_59.2.png", p_59.2)
+
+#Tabla word: 
+tab_df(talleres, file = "cuadro_talleres_de_artesania.doc")
+
+
+
+
+##60. [Dormir en casa de una familia de la comunidad]##
+
+dormir= encuesta_turistas %>%
+  group_by(`[Dormir en casa de una familia de la comunidad]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_60.1 = dormir %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Dormir en casa de una familia de la comunidad]`, y = prop, fill = `[Dormir en casa de una familia de la comunidad]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_60.1.png", p_60.1)
+
+# Gráfico de torta
+p_60.2 = dormir %>% 
+  arrange(desc(`[Dormir en casa de una familia de la comunidad]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Dormir en casa de una familia de la comunidad]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_60.2.png", p_60.2)
+
+#Tabla word: 
+tab_df(dormir, file = "cuadro_dormir_en_casa_de_una_familia_de_la_comunidad.doc")
+
+
+
+
+##61. ¿Repetiría su visita##
 repetiria<- encuesta_turistas %>%
   select("¿Repetiría su visita")
 table(repetiria)
 (prop.table(table (repetiria)))*100
 names(which(table(repetiria)==max(table(repetiria))))
+
+repetiria= encuesta_turistas %>%
+  group_by(`¿Repetiría su visita`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_61.1 = repetiria %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `¿Repetiría su visita`, y = prop, fill = `¿Repetiría su visita`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_61.1.png", p_61.1)
+
+# Gráfico de torta
+p_61.2 = repetiria %>% 
+  arrange(desc(`¿Repetiría su visita`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `¿Repetiría su visita`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_61.2.png", p_61.2)
+
+#Tabla word: 
+tab_df(repetiria, file = "cuadro_repetiria_su_visita.doc")
+
+
 
 
 #######CRUCE DE DATOS#########
