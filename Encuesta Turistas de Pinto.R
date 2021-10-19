@@ -1,22 +1,93 @@
 #Encuesta a turistas de Pinto#
 
-library(dplyr)
-X20211013_Encuesta_a_Turistas_Pinto_modificada
-names(X20211013_Encuesta_a_Turistas_Pinto_modificada)
+# Observación: es importante para evitar confusiones, que al ejecutar una rutina se limpie el espacio de trabajo
+# por si hubieran datos precargados, el comando para ello es el siguiente: 
+
+rm(list = ls())
+
+
+## Observación: Sobre la carga de paquetes, lo mejor es hacer una función que cargue el paquete en caso de que 
+## esté instalado o que si no lo está, que lo instale de inmediato y lo vuelva a cargar 
+
+# La función que presento a continuación permite realizar este cometido: 
+
+load_pkg <- function(pack){
+  create.pkg <- pack[!(pack %in% installed.packages()[, "Package"])]
+  if (length(create.pkg))
+    install.packages(create.pkg, dependencies = TRUE)
+  sapply(pack, require, character.only = TRUE)
+}
+
+# De esta manera la forma correcta de cargar (e instalar un paquete) es: 
+
+# Nota que cargaré el paquete tidyverse, en lugar de dplyr, porque de hecho tidyverse es un paquete de otros paquetes similares
+
+paquetes = c("tidyverse", "sjPlot")
+
+load_pkg(paquetes)
+
+## Observación la carga de los datos siempre debe estar disponible en la misma rutina de cálculo,
+## sino se cae en el paseo innecesario de cargar manualmente los datos una y otra vez. 
+## La forma correcta de hacerlo es: 
+
+encuesta_turistas = readxl::read_excel("20211013_Encuesta a Turistas Pinto modificada.xlsx")
+
+
+names(encuesta_turistas)
 
 ##ESTADISTICA DESCRIPTIVA##
 
 ## 1.Género##
-genero<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
-  select(Género)
-table(genero)
-prop.table(table (genero))*100
-names(which(table(genero)==max(table(genero))))
-barplot(table(genero))
+
+# La sintaxis puede ser realizada de otra forma utilizando dplyr: 
+# previamente se estaba mezclando la sintaxis del tidyverse con el paquete base
+
+genero = encuesta_turistas %>%
+  group_by(Género) %>% 
+  summarise(n = n()) %>% 
+  mutate(prop = n/sum(n))
+
+
+# Gráfico de barras con ggplot
+p_1 = genero %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Género`, y = prop, fill = `Género`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Para guardar el gráfico: 
+ggsave("p_1.png", p_1)
+
+# Gráfico de torta
+p_2 = genero %>% 
+  arrange(desc(`Género`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Género`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Para guardar el gráfico: 
+ggsave("p_2.png", p_2)
+
+
+# Para crear una tabla compatible con word: 
+tab_df(genero, file = "cuadro_1.doc")
+
+
+
+# genero = encuesta_turistas %>%   
+#   select(Género)
+# table(genero)
+# prop.table(table (genero))*100
+# names(which(table(genero)==max(table(genero))))
+# barplot(table(genero))
         
 
 ##2. Edad##
-edad<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+edad<- encuesta_turistas %>%
   select(Edad)
 table(edad)
 prop.table(table (edad))*100
@@ -25,7 +96,7 @@ barplot(table(edad))
 
 
 ##3. ¿A qué se dedica actualmente?##
-ocupacion<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+ocupacion<- encuesta_turistas %>%
   select("¿A qué se dedica actualmente")
 table(ocupacion)
 prop.table(table (ocupacion))*100
@@ -33,7 +104,7 @@ names(which(table(ocupacion)==max(table(ocupacion))))
 
 
 ##4. Indique el rango de ingresos que percibe su núcleo familiar##
-ingresos<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+ingresos<- encuesta_turistas %>%
   select("Indique el rango de ingresos que percibe su núcleo familiar")
 table(ingresos)
 prop.table(table (ingresos))*100
@@ -41,7 +112,7 @@ names(which(table(ingresos)==max(table(ingresos))))
 
 
 ##5. Nº de niños (de 0 a 12 años)]##
-Nniños<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+Nniños<- encuesta_turistas %>%
   select("Nº de niños (de 0 a 12 años)]") %>%
   filter("Nº de niños (de 0 a 12 años)]"!=0)
 table(Nniños)
@@ -50,7 +121,7 @@ names(which(table(Nniños)==max(table(Nniños))))
 
 
 ##6. Nº de niñas (de 0 a 12 años)]##
-Nniñas<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+Nniñas<- encuesta_turistas %>%
   select("Nº de niñas (de 0 a 12 años)]")%>%
   filter("Nº de niñas (de 0 a 12 años)]"!=0)
 table(Nniñas)
@@ -58,7 +129,7 @@ table(Nniñas)
 names(which(table(Nniñas)==max(table(Nniñas))))
 
 ##7. Nº de adolescentes varones (de 13 a 17 años)]##
-adolecentesv<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+adolecentesv<- encuesta_turistas %>%
   select("Nº de adolescentes varones (de 13 a 17 años)]")%>%
   filter("Nº de adolescentes varones (de 13 a 17 años)]"!=0)
 table(adolecentesv)
@@ -67,7 +138,7 @@ names(which(table(adolecentesv)==max(table(adolecentesv))))
 
 
 ##8. Nº de adolescentes damas (de 13 a 17 años)]##
-adolecentesd<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+adolecentesd<- encuesta_turistas %>%
   select("Nº de adolescentes damas (de 13 a 17 años)]")%>%
   filter("Nº de adolescentes damas (de 13 a 17 años)]"!=0)
 table(adolecentesd)
@@ -76,7 +147,7 @@ names(which(table(adolecentesd)==max(table(adolecentesd))))
 
 
 ##9. Nº de adultos hombres (de 18 a 59 años)]##
-adultosh<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+adultosh<- encuesta_turistas %>%
   select("Nº de adultos hombres (de 18 a 59 años)]")%>%
   filter("Nº de adultos hombres (de 18 a 59 años)]"!=0)
 table(adultosh)
@@ -86,7 +157,7 @@ names(which(table(adultosh)==max(table(adultosh))))
 
 
 ##10. Nº de adultos mujeres (de 18 a 59 años)]##
-adultosm<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+adultosm<- encuesta_turistas %>%
   select("Nº de adultos mujeres (de 18 a 59 años)]")%>%
   filter("Nº de adultos mujeres (de 18 a 59 años)]"!=0)
 table(adultosm)
@@ -95,7 +166,7 @@ names(which(table(adultosm)==max(table(adultosm))))
 
 
 ##11. Nº de adultos mayores hombres (de 60 o más años)]##
-mayoresh<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+mayoresh<- encuesta_turistas %>%
   select("Nº de adultos mayores hombres (de 60 o más años)]")%>%
   filter("Nº de adultos mayores hombres (de 60 o más años)]"!=0)
 table(mayoresh)
@@ -103,7 +174,7 @@ table(mayoresh)
 names(which(table(mayoresh)==max(table(mayoresh))))
 
 ##12. Nº de adultos mayores mujeres (de 60 o más años)]##
-mayoresm<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+mayoresm<- encuesta_turistas %>%
   select("Nº de adultos mayores mujeres (de 60 o más años)]")%>%
   filter("Nº de adultos mayores mujeres (de 60 o más años)]"!=0)
 table(mayoresm)
@@ -112,7 +183,7 @@ names(which(table(mayoresm)==max(table(mayoresm))))
 
 
 ##13. ¿Cuál es su nivel educativo##
-educacion<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+educacion<- encuesta_turistas %>%
   select("¿Cuál es su nivel educativo")
 table(educacion)
 (prop.table(table (educacion)))*100
@@ -120,7 +191,7 @@ names(which(table(educacion)==max(table(educacion))))
 
 
 ##14. Podría indicar su estado civil##
-estado<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+estado<- encuesta_turistas %>%
   select("Podría indicar su estado civil")
 table(estado)
 (prop.table(table (estado)))*100
@@ -128,7 +199,7 @@ names(which(table(estado)==max(table(estado))))
 
 
 ##15. Indique si es Chileno o Extranjero##
-nacionalidad<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+nacionalidad<- encuesta_turistas %>%
   select("Indique si es Chileno o Extranjero")
 table(nacionalidad)
 (prop.table(table (nacionalidad)))*100
@@ -136,7 +207,7 @@ names(which(table(nacionalidad)==max(table(nacionalidad))))
 
 
 ##16. Especifique su ciudad de residencia##
-ciudad<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+ciudad<- encuesta_turistas %>%
   select("Especifique su ciudad de residencia")%>%
   filter("Especifique su ciudad de residencia"!=0)
 table(ciudad)
@@ -145,7 +216,7 @@ names(which(table(ciudad)==max(table(ciudad))))
 
 
 ##17. Especifique su país de residencia##
-pais<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+pais<- encuesta_turistas %>%
   select("Especifique su país de residencia")%>%
   filter("Especifique su país de residencia"!=0)
 table(pais)
@@ -159,7 +230,7 @@ names(which(table(pais)==max(table(pais))))
 
 
 ##23. ¿Cuántas veces ha visitado la comuna##
-visitas<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+visitas<- encuesta_turistas %>%
   select("¿Cuántas veces ha visitado la comuna")
 table(visitas)
 (prop.table(table (visitas)))*100
@@ -167,7 +238,7 @@ names(which(table(visitas)==max(table(visitas))))
 
 
 ##24. ¿Cuántas personas lo/a acompañaron en su último viaje a la comuna## sdfsdafadfasd
-acompañantes<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+acompañantes<- encuesta_turistas %>%
   select("¿Cuántas personas lo/a acompañaron en su último viaje a la comuna")
 table(acompañantes)
 (prop.table(table (acompañantes)))*100
@@ -177,7 +248,7 @@ names(which(table(acompañantes)==max(table(acompañantes))))
 
 
 ##26. ¿Cuánta noches pernoctó en la comuna##
-noches<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+noches<- encuesta_turistas %>%
   select("¿Cuánta noches pernoctó en la comuna")
 table(noches)
 (prop.table(table (noches)))*100
@@ -188,7 +259,7 @@ names(which(table(noches)==max(table(noches))))
 
 
 ##30. [Alojamiento]##
-alojamiento<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+alojamiento<- encuesta_turistas %>%
   select("[Alojamiento]")%>%
   filter("[Alojamiento]"!="N/A")
 table(alojamiento)
@@ -197,7 +268,7 @@ names(which(table(alojamiento)==max(table(alojamiento))))
 
 
 ##31. [Alimentación]##
-alimentacion<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+alimentacion<- encuesta_turistas %>%
   select("[Alimentación]")%>%
   filter("[Alimentación]"!="N/A")
 table(alimentacion)
@@ -206,7 +277,7 @@ names(which(table(alimentacion)==max(table(alimentacion))))
 
 
 ##32. [Transporte]##
-trasporte<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+trasporte<- encuesta_turistas %>%
   select("[Transporte]")%>%
   filter("[Transporte]"!="N/A")
 table(trasporte)
@@ -215,7 +286,7 @@ names(which(table(trasporte)==max(table(trasporte))))
 
 
 ##33. [Servicios complementarios]##
-servicios<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+servicios<- encuesta_turistas %>%
   select("[Servicios complementarios]")%>%
   filter("[Servicios complementarios]"!="N/A")
 table(servicios)
@@ -223,7 +294,7 @@ table(servicios)
 names(which(table(servicios)==max(table(servicios))))
 
 ##34. [Vida nocturna]##
-nocturna<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+nocturna<- encuesta_turistas %>%
   select("[Vida nocturna]")
 table(nocturna)
 (prop.table(table (nocturna)))*100
@@ -231,7 +302,7 @@ names(which(table(nocturna)==max(table(nocturna))))
 
 
 ##35. [Comercio]##
-comercio<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+comercio<- encuesta_turistas %>%
   select("[Comercio]")%>%
   filter("[Comercio]"!="N/A")
 table(comercio)
@@ -240,7 +311,7 @@ names(which(table(comercio)==max(table(comercio))))
 
 
 ##36. [Actividades programadas por las instituciones de la comuna]##
-actividades<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+actividades<- encuesta_turistas %>%
   select("[Actividades programadas por las instituciones de la comuna]")
 table(actividades)
 (prop.table(table (actividades)))*100
@@ -248,7 +319,7 @@ names(which(table(actividades)==max(table(actividades))))
 
 
 ##37. [Estado de caminos]##
-caminos<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+caminos<- encuesta_turistas %>%
   select("[Estado de caminos]")%>%
   filter("[Estado de caminos]"!="N/A")
 table(caminos)
@@ -257,7 +328,7 @@ names(which(table(caminos)==max(table(caminos))))
 
 
 ##38. [Señalización vial]##
-señalizacion<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+señalizacion<- encuesta_turistas %>%
   select("[Señalización vial]")%>%
   filter("[Señalización vial]"!="N/A")
 table(señalizacion)
@@ -265,7 +336,7 @@ table(señalizacion)
 names(which(table(señalizacion)==max(table(señalizacion))))
 
 ##39. [Señalética turística]##
-señaleticat<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+señaleticat<- encuesta_turistas %>%
   select("[Señalética turística]")%>%
   filter("[Señalética turística]"!="N/A")
 table(señaleticat)
@@ -274,7 +345,7 @@ names(which(table(señaleticat)==max(table(señaleticat))))
 
 
 ##40. [Accesos para personas con movilidad limitada]##
-accesos<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+accesos<- encuesta_turistas %>%
   select("[Accesos para personas con movilidad limitada]")%>%
   filter("[Accesos para personas con movilidad limitada]"!="N/A")
 table(accesos)
@@ -283,7 +354,7 @@ names(which(table(accesos)==max(table(accesos))))
 
 
 ##41. [Paisaje natural]##
-paisaje<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+paisaje<- encuesta_turistas %>%
   select("[Paisaje natural]")
 table(paisaje)
 (prop.table(table (paisaje)))*100
@@ -291,7 +362,7 @@ names(which(table(paisaje)==max(table(paisaje))))
 
 
 ##42. [Amabilidad de los residentes]##
-amabilidad<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+amabilidad<- encuesta_turistas %>%
   select("[Amabilidad de los residentes]")
 table(amabilidad)
 (prop.table(table (amabilidad)))*100
@@ -299,7 +370,7 @@ names(which(table(amabilidad)==max(table(amabilidad))))
 
 
 ##43. [Relación Precio - Calidad] revisar##
-precio_calidad<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+precio_calidad<- encuesta_turistas %>%
   select("[Relación Precio - Calidad]")
 table(precio_calidad)
 (prop.table(table (precio_calidad)))*100
@@ -307,7 +378,7 @@ names(which(table(precio_calidad)==max(table(precio_calidad))))
 
 
 ##44. [Limpieza del entorno]##
-limpieza<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+limpieza<- encuesta_turistas %>%
   select("[Limpieza del entorno]")
 table(limpieza)
 (prop.table(table (limpieza)))*100
@@ -315,7 +386,7 @@ names(which(table(limpieza)==max(table(limpieza))))
 
 
 ##45. [Mantención de infraestructura pública]##
-mantecion<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+mantecion<- encuesta_turistas %>%
   select("[Mantención de infraestructura pública]")
 table(mantecion)
 (prop.table(table (mantecion)))*100
@@ -323,7 +394,7 @@ names(which(table(mantecion)==max(table(mantecion))))
 
 
 ##46. [Percepción de seguridad en la comuna]##
-seguridad<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+seguridad<- encuesta_turistas %>%
   select("[Percepción de seguridad en la comuna]")
 table(seguridad)
 (prop.table(table (seguridad)))*100
@@ -331,7 +402,7 @@ names(which(table(seguridad)==max(table(seguridad))))
 
 
 ##47. [Servicios de salud]##
-salud<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+salud<- encuesta_turistas %>%
   select("[Servicios de salud]")
 table(salud)
 (prop.table(table (salud)))*100
@@ -343,14 +414,14 @@ names(which(table(salud)==max(table(salud))))
 
 
 ##51. [Actividades agrícolas]##
-agricolas<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+agricolas<- encuesta_turistas %>%
   select("[Actividades agrícolas]")
 table(agricolas)
 (prop.table(table (agricolas)))*100
 names(which(table(agricolas)==max(table(agricolas))))
 
 ##52. [Participar en fiestas costumbristas]##
-costumbristas<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+costumbristas<- encuesta_turistas %>%
   select("[Participar en fiestas costumbristas]")
 table(costumbristas)
 (prop.table(table (costumbristas)))*100
@@ -358,7 +429,7 @@ names(which(table(costumbristas)==max(table(costumbristas))))
 
 
 ##52. [Vestir trajes tradicionales (aunque se para una sessión de fotos)]##
-trajes<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+trajes<- encuesta_turistas %>%
   select("[Vestir trajes tradicionales (aunque se para una sessión de fotos)]")
 table(trajes)
 (prop.table(table (trajes)))*100
@@ -366,7 +437,7 @@ names(which(table(trajes)==max(table(trajes))))
 
 
 ##53. [Caminatas y/o ciclísmo]##
-caminata_ciclismo<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+caminata_ciclismo<- encuesta_turistas %>%
   select("[Caminatas y/o ciclísmo]")
 table(caminata_ciclismo)
 (prop.table(table (caminata_ciclismo)))*100
@@ -374,7 +445,7 @@ names(which(table(caminata_ciclismo)==max(table(caminata_ciclismo))))
 
 
 ##54. [Pesca deportiva (Catch and release)]##
-pesca<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+pesca<- encuesta_turistas %>%
   select("[Pesca deportiva (Catch and release)]")
 table(pesca)
 (prop.table(table (pesca)))*100
@@ -382,7 +453,7 @@ names(which(table(pesca)==max(table(pesca))))
 
 
 ##55. [Práctica deportes naúticos]
-nauticos<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+nauticos<- encuesta_turistas %>%
   select("[Práctica deportes naúticos]")
 table(nauticos)
 (prop.table(table (nauticos)))*100
@@ -390,7 +461,7 @@ names(which(table(nauticos)==max(table(nauticos))))
 
 
 ##56. [Probar platos típicos o exclusivos de la zona]##
-platos<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+platos<- encuesta_turistas %>%
   select("[Probar platos típicos o exclusivos de la zona]")
 table(platos)
 (prop.table(table (platos)))*100
@@ -398,14 +469,14 @@ names(which(table(platos)==max(table(platos))))
 
 
 ##57. [Aprender a prepara platos típicos de la zona]##
-preparar<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+preparar<- encuesta_turistas %>%
   select("[Aprender a prepara platos típicos de la zona]")
 table(preparar)
 (prop.table(table (preparar)))*100
 names(which(table(preparar)==max(table(preparar))))
 
 ##58. [Participar en talleres de artesanía]##
-talleres<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+talleres<- encuesta_turistas %>%
   select("[Participar en talleres de artesanía]")
 table(talleres)
 (prop.table(table (talleres)))*100
@@ -413,7 +484,7 @@ names(which(table(talleres)==max(table(talleres))))
 
 
 ##59. [Dormir en casa de una familia de la comunidad]##
-dormir<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+dormir<- encuesta_turistas %>%
   select("[Dormir en casa de una familia de la comunidad]")
 table(dormir)
 (prop.table(table (dormir)))*100
@@ -421,7 +492,7 @@ names(which(table(dormir)==max(table(dormir))))
 
 
 ##60. ¿Repetiría su visita##
-repetiria<- X20211013_Encuesta_a_Turistas_Pinto_modificada %>%
+repetiria<- encuesta_turistas %>%
   select("¿Repetiría su visita")
 table(repetiria)
 (prop.table(table (repetiria)))*100
@@ -430,31 +501,31 @@ names(which(table(repetiria)==max(table(repetiria))))
 
 #######CRUCE DE DATOS#########
 
-encuesta<-X20211013_Encuesta_a_Turistas_Pinto_modificada
+encuesta<-encuesta_turistas
 
 ##EdadxGenero##
-edadxgenero<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Edad, X20211013_Encuesta_a_Turistas_Pinto_modificada$Género)
+edadxgenero<-table(encuesta_turistas$Edad, encuesta_turistas$Género)
 edadxgenero
 prop.table(edadxgenero)*100
 prop.table(edadxgenero,1)*100
 prop.table(edadxgenero,2)*100
 
 ##Genero y Nivel Educativo
-generoxeducacion<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Género, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuál es su nivel educativo`)
+generoxeducacion<-table(encuesta_turistas$Género, encuesta_turistas$`¿Cuál es su nivel educativo`)
 generoxeducacion
 prop.table(generoxeducacion)*100
 prop.table(generoxeducacion,1)*100
 prop.table(generoxeducacion,2)*100
 
 ##edad y noches en la zona
-edadxnoches<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Edad, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuánta noches pernoctó en la comuna`)
+edadxnoches<-table(encuesta_turistas$Edad, encuesta_turistas$`¿Cuánta noches pernoctó en la comuna`)
 edadxnoches
 prop.table(edadxnoches)*100
 prop.table(edadxnoches,1)*100
 prop.table(edadxnoches,2)*100
 
 ##genero y noches en la zona
-generoxnoches<-table(X20211013_Encuesta_a_Turistas_Pinto_modificada$Género, X20211013_Encuesta_a_Turistas_Pinto_modificada$`¿Cuánta noches pernoctó en la comuna`)
+generoxnoches<-table(encuesta_turistas$Género, encuesta_turistas$`¿Cuánta noches pernoctó en la comuna`)
 generoxnoches
 prop.table(generoxnoches)*100
 prop.table(generoxnoches,1)*100
