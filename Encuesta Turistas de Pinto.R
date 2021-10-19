@@ -35,12 +35,20 @@ encuesta_turistas = readxl::read_excel("20211013_Encuesta a Turistas Pinto modif
 
 names(encuesta_turistas)
 
+#Encuesta a turistas de Pinto#
+rm(list = ls())
+
+library(dplyr)
+library(tidyverse)
+library(sjPlot)
+library(ggplot2)
+encuesta_turistas = readxl::read_excel("20211013_Encuesta a Turistas Pinto modificada.xlsx")
+
+
+
 ##ESTADISTICA DESCRIPTIVA##
 
 ## 1.Género##
-
-# La sintaxis puede ser realizada de otra forma utilizando dplyr: 
-# previamente se estaba mezclando la sintaxis del tidyverse con el paquete base
 
 genero = encuesta_turistas %>%
   group_by(Género) %>% 
@@ -49,17 +57,17 @@ genero = encuesta_turistas %>%
 
 
 # Gráfico de barras con ggplot
-p_1 = genero %>%
+p_1.1 = genero %>%
   mutate(prop = round(prop*100,1)) %>% 
   ggplot(aes(x = `Género`, y = prop, fill = `Género`))+
   geom_col(col = "black")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
 
 # Para guardar el gráfico: 
-ggsave("p_1.png", p_1)
+ggsave("p_1.2.png", p_1)
 
 # Gráfico de torta
-p_2 = genero %>% 
+p_1.2 = genero %>% 
   arrange(desc(`Género`)) %>% 
   mutate(prop = round(prop*100,1), 
          ypos = cumsum(prop)-0.5*prop) %>% 
@@ -70,158 +78,599 @@ p_2 = genero %>%
   geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
 
 # Para guardar el gráfico: 
-ggsave("p_2.png", p_2)
+ggsave("p_1.2.png", p_2)
 
 
 # Para crear una tabla compatible con word: 
-tab_df(genero, file = "cuadro_1.doc")
-
-
-
-# genero = encuesta_turistas %>%   
-#   select(Género)
-# table(genero)
-# prop.table(table (genero))*100
-# names(which(table(genero)==max(table(genero))))
-# barplot(table(genero))
+tab_df(genero, file = "cuadro_genero.doc")
         
 
 ##2. Edad##
-edad<- encuesta_turistas %>%
-  select(Edad)
-table(edad)
-prop.table(table (edad))*100
-names(which(table(edad)==max(table(edad))))
-barplot(table(edad))
+edad = encuesta_turistas %>%
+  group_by(Edad) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_2.1 = edad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Edad`, y = prop, fill = `Edad`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_2.1.png", p_2.1)
+
+# Gráfico de torta
+p_2.2 = edad %>% 
+  arrange(desc(`Edad`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Edad`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_2.2.png", p_2)
+plot(p_2.2)
+
+#Tabla word: 
+tab_df(edad, file = "cuadro_edad.doc")
+
+
 
 
 ##3. ¿A qué se dedica actualmente?##
-ocupacion<- encuesta_turistas %>%
-  select("¿A qué se dedica actualmente")
-table(ocupacion)
-prop.table(table (ocupacion))*100
-names(which(table(ocupacion)==max(table(ocupacion))))
+
+ocupacion = encuesta_turistas %>%
+  group_by(`¿A qué se dedica actualmente`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_3.1 = ocupacion %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `¿A qué se dedica actualmente`, y = prop, fill = `¿A qué se dedica actualmente`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_3.1.png", p_3.1)
+
+# Gráfico de torta
+p_3.2 = ocupacion %>% 
+  arrange(desc(`¿A qué se dedica actualmente`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `¿A qué se dedica actualmente`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_3.2.png", p_3.2)
+
+#Tabla word: 
+tab_df(ocupacion, file = "cuadro_ocupacion.doc")
+
 
 
 ##4. Indique el rango de ingresos que percibe su núcleo familiar##
-ingresos<- encuesta_turistas %>%
-  select("Indique el rango de ingresos que percibe su núcleo familiar")
-table(ingresos)
-prop.table(table (ingresos))*100
-names(which(table(ingresos)==max(table(ingresos))))
+
+ingresos = encuesta_turistas %>%
+  group_by(`Indique el rango de ingresos que percibe su núcleo familiar`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_4.1 = ingresos %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Indique el rango de ingresos que percibe su núcleo familiar`, y = prop, fill = `Indique el rango de ingresos que percibe su núcleo familiar`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_4.1.png", p_4.1)
+
+# Gráfico de torta
+p_4.2 = ingresos %>% 
+  arrange(desc(`Indique el rango de ingresos que percibe su núcleo familiar`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Indique el rango de ingresos que percibe su núcleo familiar`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_4.2.png", p_4.2)
+
+#Tabla word: 
+tab_df(ingresos, file = "cuadro_ingresos.doc")
+
 
 
 ##5. Nº de niños (de 0 a 12 años)]##
-Nniños<- encuesta_turistas %>%
-  select("Nº de niños (de 0 a 12 años)]") %>%
-  filter("Nº de niños (de 0 a 12 años)]"!=0)
-table(Nniños)
-(prop.table(table (Nniños)))*100
-names(which(table(Nniños)==max(table(Nniños))))
 
+Nniños = encuesta_turistas %>%
+  group_by(`Nº de niños (de 0 a 12 años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_5.1 = Nniños %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de niños (de 0 a 12 años)]`, y = prop, fill = `Nº de niños (de 0 a 12 años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_5.1.png", p_5.1)
+
+# Gráfico de torta
+p_5.2 = Nniños %>% 
+  arrange(desc(`Nº de niños (de 0 a 12 años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de niños (de 0 a 12 años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_5.2.png", p_5.2)
+
+#Tabla word: 
+tab_df(Nniños, file = "cuadro_Nniños.doc")
 
 ##6. Nº de niñas (de 0 a 12 años)]##
-Nniñas<- encuesta_turistas %>%
-  select("Nº de niñas (de 0 a 12 años)]")%>%
-  filter("Nº de niñas (de 0 a 12 años)]"!=0)
-table(Nniñas)
-(prop.table(table (Nniñas)))*100
-names(which(table(Nniñas)==max(table(Nniñas))))
+
+Nniñas = encuesta_turistas %>%
+  group_by(`Nº de niñas (de 0 a 12 años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_6.1 = Nniñas %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de niñas (de 0 a 12 años)]`, y = prop, fill = `Nº de niñas (de 0 a 12 años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_6.1.png", p_6.1)
+
+# Gráfico de torta
+p_6.2 = Nniñas %>% 
+  arrange(desc(`Nº de niñas (de 0 a 12 años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de niñas (de 0 a 12 años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_6.2.png", p_6.2)
+
+#Tabla word: 
+tab_df(Nniñas, file = "cuadro_Nniñas.doc")
+
+
+
 
 ##7. Nº de adolescentes varones (de 13 a 17 años)]##
-adolecentesv<- encuesta_turistas %>%
-  select("Nº de adolescentes varones (de 13 a 17 años)]")%>%
-  filter("Nº de adolescentes varones (de 13 a 17 años)]"!=0)
-table(adolecentesv)
-(prop.table(table (adolecentesv)))*100
-names(which(table(adolecentesv)==max(table(adolecentesv))))
+
+adolecentesv = encuesta_turistas %>%
+  group_by(`Nº de adolescentes varones (de 13 a 17 años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_7.1 = adolecentesv %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de adolescentes varones (de 13 a 17 años)]`, y = prop, fill = `Nº de adolescentes varones (de 13 a 17 años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_7.1.png", p_7.1)
+
+# Gráfico de torta
+p_7.2 = adolecentesv %>% 
+  arrange(desc(`Nº de adolescentes varones (de 13 a 17 años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de adolescentes varones (de 13 a 17 años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_7.2.png", p_7.2)
+
+#Tabla word: 
+tab_df(adolecentesv, file = "cuadro_adolecentesV.doc")
+
+
 
 
 ##8. Nº de adolescentes damas (de 13 a 17 años)]##
-adolecentesd<- encuesta_turistas %>%
-  select("Nº de adolescentes damas (de 13 a 17 años)]")%>%
-  filter("Nº de adolescentes damas (de 13 a 17 años)]"!=0)
-table(adolecentesd)
-(prop.table(table (adolecentesd)))*100
-names(which(table(adolecentesd)==max(table(adolecentesd))))
+
+adolecentesd = encuesta_turistas %>%
+  group_by(`Nº de adolescentes damas (de 13 a 17 años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_8.1 = adolecentesd %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de adolescentes damas (de 13 a 17 años)]`, y = prop, fill = `Nº de adolescentes damas (de 13 a 17 años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_8.1.png", p_8.1)
+
+# Gráfico de torta
+p_8.2 = adolecentesd %>% 
+  arrange(desc(`Nº de adolescentes damas (de 13 a 17 años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de adolescentes damas (de 13 a 17 años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_8.2.png", p_8.2)
+
+#Tabla word: 
+tab_df(adolecentesd, file = "cuadro_adolecentesD.doc")
+
+
 
 
 ##9. Nº de adultos hombres (de 18 a 59 años)]##
-adultosh<- encuesta_turistas %>%
-  select("Nº de adultos hombres (de 18 a 59 años)]")%>%
-  filter("Nº de adultos hombres (de 18 a 59 años)]"!=0)
-table(adultosh)
-(prop.table(table (adultosh)))*100
-names(which(table(adultosh)==max(table(adultosh))))
+
+adultosh = encuesta_turistas %>%
+  group_by(`Nº de adultos hombres (de 18 a 59 años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_9.1 = adultosh %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de adultos hombres (de 18 a 59 años)]`, y = prop, fill = `Nº de adultos hombres (de 18 a 59 años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_9.1.png", p_9.1)
+
+# Gráfico de torta
+p_9.2 = adultosh %>% 
+  arrange(desc(`Nº de adultos hombres (de 18 a 59 años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de adultos hombres (de 18 a 59 años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_9.2.png", p_9.2)
+
+#Tabla word: 
+tab_df(adultosh, file = "cuadro_adultosH.doc")
+
 
 
 
 ##10. Nº de adultos mujeres (de 18 a 59 años)]##
-adultosm<- encuesta_turistas %>%
-  select("Nº de adultos mujeres (de 18 a 59 años)]")%>%
-  filter("Nº de adultos mujeres (de 18 a 59 años)]"!=0)
-table(adultosm)
-(prop.table(table (adultosm)))*100
-names(which(table(adultosm)==max(table(adultosm))))
+
+adultosm = encuesta_turistas %>%
+  group_by(`Nº de adultos mujeres (de 18 a 59 años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_10.1 = adultosm %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de adultos mujeres (de 18 a 59 años)]`, y = prop, fill = `Nº de adultos mujeres (de 18 a 59 años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_10.1.png", p_10.1)
+
+# Gráfico de torta
+p_10.2 = adultosm %>% 
+  arrange(desc(`Nº de adultos mujeres (de 18 a 59 años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de adultos mujeres (de 18 a 59 años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_10.2.png", p_10.2)
+
+#Tabla word: 
+tab_df(adultosm, file = "cuadro_adultosM.doc")
+
+
 
 
 ##11. Nº de adultos mayores hombres (de 60 o más años)]##
-mayoresh<- encuesta_turistas %>%
-  select("Nº de adultos mayores hombres (de 60 o más años)]")%>%
-  filter("Nº de adultos mayores hombres (de 60 o más años)]"!=0)
-table(mayoresh)
-(prop.table(table (mayoresh)))*100
-names(which(table(mayoresh)==max(table(mayoresh))))
+
+mayoresh = encuesta_turistas %>%
+  group_by(`Nº de adultos mayores hombres (de 60 o más años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_11.1 = mayoresh %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de adultos mayores hombres (de 60 o más años)]`, y = prop, fill = `Nº de adultos mayores hombres (de 60 o más años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_11.1.png", p_11.1)
+
+# Gráfico de torta
+p_11.2 = mayoresh %>% 
+  arrange(desc(`Nº de adultos mayores hombres (de 60 o más años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de adultos mayores hombres (de 60 o más años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_11.2.png", p_11.2)
+
+#Tabla word: 
+tab_df(mayoresh, file = "cuadro_mayoresH.doc")
+
+
+
 
 ##12. Nº de adultos mayores mujeres (de 60 o más años)]##
-mayoresm<- encuesta_turistas %>%
-  select("Nº de adultos mayores mujeres (de 60 o más años)]")%>%
-  filter("Nº de adultos mayores mujeres (de 60 o más años)]"!=0)
-table(mayoresm)
-(prop.table(table (mayoresm)))*100
-names(which(table(mayoresm)==max(table(mayoresm))))
+
+mayoresm = encuesta_turistas %>%
+  group_by(`Nº de adultos mayores mujeres (de 60 o más años)]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_12.1 = mayoresm %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Nº de adultos mayores mujeres (de 60 o más años)]`, y = prop, fill = `Nº de adultos mayores mujeres (de 60 o más años)]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_12.1.png", p_12.1)
+
+# Gráfico de torta
+p_12.2 = mayoresm %>% 
+  arrange(desc(`Nº de adultos mayores mujeres (de 60 o más años)]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Nº de adultos mayores mujeres (de 60 o más años)]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_12.2.png", p_12.2)
+
+#Tabla word: 
+tab_df(mayoresm, file = "cuadro_mayoresM.doc")
+
+
 
 
 ##13. ¿Cuál es su nivel educativo##
-educacion<- encuesta_turistas %>%
-  select("¿Cuál es su nivel educativo")
-table(educacion)
-(prop.table(table (educacion)))*100
-names(which(table(educacion)==max(table(educacion))))
+
+educacion = encuesta_turistas %>%
+  group_by(`¿Cuál es su nivel educativo`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_13.1 = educacion %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `¿Cuál es su nivel educativo`, y = prop, fill = `¿Cuál es su nivel educativo`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_13.1.png", p_13.1)
+
+# Gráfico de torta
+p_13.2 = educacion %>% 
+  arrange(desc(`¿Cuál es su nivel educativo`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `¿Cuál es su nivel educativo`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_13.2.png", p_13.2)
+
+#Tabla word: 
+tab_df(educacion, file = "cuadro_educacion.doc")
+
+
 
 
 ##14. Podría indicar su estado civil##
-estado<- encuesta_turistas %>%
-  select("Podría indicar su estado civil")
-table(estado)
-(prop.table(table (estado)))*100
-names(which(table(estado)==max(table(estado))))
+
+estado = encuesta_turistas %>%
+  group_by(`Podría indicar su estado civil`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_14.1 = estado %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Podría indicar su estado civil`, y = prop, fill = `Podría indicar su estado civil`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_14.1.png", p_14.1)
+
+# Gráfico de torta
+p_14.2 = estado %>% 
+  arrange(desc(`Podría indicar su estado civil`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Podría indicar su estado civil`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_14.2.png", p_14.2)
+
+#Tabla word: 
+tab_df(estado, file = "cuadro_estadocivil.doc")
+
+
 
 
 ##15. Indique si es Chileno o Extranjero##
-nacionalidad<- encuesta_turistas %>%
-  select("Indique si es Chileno o Extranjero")
-table(nacionalidad)
-(prop.table(table (nacionalidad)))*100
-names(which(table(nacionalidad)==max(table(nacionalidad))))
+
+nacionalidad = encuesta_turistas %>%
+  group_by(`Indique si es Chileno o Extranjero`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_15.1 =  nacionalidad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Indique si es Chileno o Extranjero`, y = prop, fill = `Indique si es Chileno o Extranjero`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_15.1.png", p_15.1)
+
+# Gráfico de torta
+p_15.2 = nacionalidad %>% 
+  arrange(desc(`Indique si es Chileno o Extranjero`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Indique si es Chileno o Extranjero`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+
+# Guardar el gráfico: 
+ggsave("p_15.2.png", p_15.2)
+
+#Tabla word: 
+tab_df(nacionalidad, file = "cuadro_nacionalidad.doc")
+
+
 
 
 ##16. Especifique su ciudad de residencia##
-ciudad<- encuesta_turistas %>%
-  select("Especifique su ciudad de residencia")%>%
-  filter("Especifique su ciudad de residencia"!=0)
-table(ciudad)
-(prop.table(table (ciudad)))*100
-names(which(table(ciudad)==max(table(ciudad))))
+
+ciudad = encuesta_turistas %>%
+  group_by(`Especifique su ciudad de residencia`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_16.1 = ciudad %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Especifique su ciudad de residencia`, y = prop, fill = `Especifique su ciudad de residencia`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 5)
+
+# Guardar el gráfico: 
+ggsave("p_16.1.png", p_16.1)
+
+# Gráfico de torta
+p_16.2 = ciudad %>% 
+  arrange(desc(`Especifique su ciudad de residencia`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Especifique su ciudad de residencia`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=5)
+
+# Guardar el gráfico: 
+ggsave("p_16.2.png", p_16.2)
+
+#Tabla word: 
+tab_df(ciudad, file = "cuadro_cuidad.doc")
+
+
 
 
 ##17. Especifique su país de residencia##
-pais<- encuesta_turistas %>%
-  select("Especifique su país de residencia")%>%
-  filter("Especifique su país de residencia"!=0)
-table(pais)
-(prop.table(table (pais)))*100
-names(which(table(pais)==max(table(pais))))
+
+pais = encuesta_turistas %>%
+  group_by(`Especifique su país de residencia`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n)) %>%
+  filter(`Especifique su país de residencia`!="N/A")
+
+# Gráfico de barras
+p_17.1 = pais %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `Especifique su país de residencia`, y = prop, fill = `Especifique su país de residencia`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_17.1.png", p_17.1)
+
+# Gráfico de torta
+p_17.2 = pais %>% 
+  arrange(desc(`Especifique su país de residencia`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `Especifique su país de residencia`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=5)
+
+# Guardar el gráfico: 
+ggsave("p_17.2.png", p_17.2)
+
+#Tabla word: 
+tab_df(pais, file = "cuadro_pais.doc")
+
+
 
 
 ##18 19 20 21 22 stand by##
@@ -230,41 +679,159 @@ names(which(table(pais)==max(table(pais))))
 
 
 ##23. ¿Cuántas veces ha visitado la comuna##
-visitas<- encuesta_turistas %>%
-  select("¿Cuántas veces ha visitado la comuna")
-table(visitas)
-(prop.table(table (visitas)))*100
-names(which(table(visitas)==max(table(visitas))))
+
+visitas = encuesta_turistas %>%
+  group_by(`¿Cuántas veces ha visitado la comuna`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_23.1 = visitas %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `¿Cuántas veces ha visitado la comuna`, y = prop, fill = `¿Cuántas veces ha visitado la comuna`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_23.1.png", p_23.1)
+
+# Gráfico de torta
+p_23.2 = visitas %>% 
+  arrange(desc(`¿Cuántas veces ha visitado la comuna`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `¿Cuántas veces ha visitado la comuna`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_23.2.png", p_23.2)
+
+#Tabla word: 
+tab_df(visitas, file = "cuadro_numerodevisitas.doc")
+
+
 
 
 ##24. ¿Cuántas personas lo/a acompañaron en su último viaje a la comuna## sdfsdafadfasd
-acompañantes<- encuesta_turistas %>%
-  select("¿Cuántas personas lo/a acompañaron en su último viaje a la comuna")
-table(acompañantes)
-(prop.table(table (acompañantes)))*100
-names(which(table(acompañantes)==max(table(acompañantes))))
+
+acompañantes = encuesta_turistas %>%
+  group_by(`¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_24.1 = acompañantes %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`, y = prop, fill = `¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_24.1.png", p_24.1)
+
+# Gráfico de torta
+p_24.2 = acompañantes %>% 
+  arrange(desc(`¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_24.2.png", p_24.2)
+
+#Tabla word: 
+tab_df(acompañantes, file = "cuadro_numero_de_acompañantes.doc")
+
+
+
 
 ##25. stand by##
 
 
 ##26. ¿Cuánta noches pernoctó en la comuna##
-noches<- encuesta_turistas %>%
-  select("¿Cuánta noches pernoctó en la comuna")
-table(noches)
-(prop.table(table (noches)))*100
-names(which(table(noches)==max(table(noches))))
+
+noches = encuesta_turistas %>%
+  group_by(`¿Cuánta noches pernoctó en la comuna`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_26.1 = noches %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `¿Cuánta noches pernoctó en la comuna`, y = prop, fill = `¿Cuánta noches pernoctó en la comuna`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_26.1.png", p_26.1)
+
+# Gráfico de torta
+p_26.2 = noches %>% 
+  arrange(desc(`¿Cuánta noches pernoctó en la comuna`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `¿Cuánta noches pernoctó en la comuna`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_26.2.png", p_26.2)
+
+#Tabla word: 
+tab_df(noches, file = "cuadro_numero_de_noches.doc")
+
+
 
 
 ##27 28 29 stand by##
 
 
+
+
 ##30. [Alojamiento]##
-alojamiento<- encuesta_turistas %>%
-  select("[Alojamiento]")%>%
-  filter("[Alojamiento]"!="N/A")
-table(alojamiento)
-(prop.table(table (alojamiento)))*100
-names(which(table(alojamiento)==max(table(alojamiento))))
+
+alojamiento = encuesta_turistas %>%
+  group_by(`[Alojamiento]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_30.1 = alojamiento %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Alojamiento]`, y = prop, fill = `[Alojamiento]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_30.1.png", p_30.1)
+
+# Gráfico de torta
+p_30.2 = alojamiento %>% 
+  arrange(desc(`[Alojamiento]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Alojamiento]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_30.2.png", p_30.2)
+
+#Tabla word: 
+tab_df(alojamiento, file = "cuadro_alojamiento.doc")
+
+
 
 
 ##31. [Alimentación]##
@@ -275,30 +842,150 @@ table(alimentacion)
 (prop.table(table (alojamiento)))*100
 names(which(table(alimentacion)==max(table(alimentacion))))
 
+alimentacion = encuesta_turistas %>%
+  group_by(`[Alimentación]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_31.1 = alimentacion %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Alimentación]`, y = prop, fill = `[Alimentación]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_31.1.png", p_31.1)
+
+# Gráfico de torta
+p_31.2 = alimentacion %>% 
+  arrange(desc(`[Alimentación]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Alimentación]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_31.2.png", p_31.2)
+
+#Tabla word: 
+tab_df(alimentacion, file = "cuadro_alimentacion.doc")
+
+
+
 
 ##32. [Transporte]##
-trasporte<- encuesta_turistas %>%
-  select("[Transporte]")%>%
-  filter("[Transporte]"!="N/A")
-table(trasporte)
-(prop.table(table (trasporte)))*100
-names(which(table(trasporte)==max(table(trasporte))))
+
+transporte = encuesta_turistas %>%
+  group_by(`[Transporte]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_32.1 = transporte %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Transporte]`, y = prop, fill = `[Transporte]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_32.1.png", p_32.1)
+
+# Gráfico de torta
+p_32.2 = transporte %>% 
+  arrange(desc(`[Transporte]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Transporte]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_32.2.png", p_32.2)
+
+#Tabla word: 
+tab_df(transporte, file = "cuadro_transporte.doc")
+
+
 
 
 ##33. [Servicios complementarios]##
-servicios<- encuesta_turistas %>%
-  select("[Servicios complementarios]")%>%
-  filter("[Servicios complementarios]"!="N/A")
-table(servicios)
-(prop.table(table (servicios)))*100
-names(which(table(servicios)==max(table(servicios))))
+
+servicios = encuesta_turistas %>%
+  group_by(`[Servicios complementarios]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_33.1 = servicios %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Servicios complementarios]`, y = prop, fill = `[Servicios complementarios]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_33.1.png", p_33.1)
+
+# Gráfico de torta
+p_33.2 = servicios %>% 
+  arrange(desc(`[Servicios complementarios]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Servicios complementarios]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_33.2.png", p_33.2)
+
+#Tabla word: 
+tab_df(servicios, file = "cuadro_servicios_complementarios.doc")
+
+
+
 
 ##34. [Vida nocturna]##
-nocturna<- encuesta_turistas %>%
-  select("[Vida nocturna]")
-table(nocturna)
-(prop.table(table (nocturna)))*100
-names(which(table(nocturna)==max(table(nocturna))))
+
+nocturna = encuesta_turistas %>%
+  group_by(`[Vida nocturna]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_34.1 = nocturna %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Vida nocturna]`, y = prop, fill = `[Vida nocturna]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_34.1.png", p_34.1)
+
+# Gráfico de torta
+p_34.2 = nocturna %>% 
+  arrange(desc(`[Vida nocturna]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Vida nocturna]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_34.2.png", p_34.2)
+
+#Tabla word: 
+tab_df(nocturna, file = "cuadro_vida_nocturna.doc")
+
+
 
 
 ##35. [Comercio]##
@@ -308,6 +995,40 @@ comercio<- encuesta_turistas %>%
 table(comercio)
 (prop.table(table (comercio)))*100
 names(which(table(comercio)==max(table(comercio))))
+
+comercio = encuesta_turistas %>%
+  group_by(`[Comercio]`) %>%
+  summarise(n=n()) %>%
+  mutate(prop= n/sum(n))
+
+# Gráfico de barras
+p_35.1 = comercio %>%
+  mutate(prop = round(prop*100,1)) %>% 
+  ggplot(aes(x = `[Comercio]`, y = prop, fill = `[Comercio]`))+
+  geom_col(col = "black")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+
+# Guardar el gráfico: 
+ggsave("p_35.1.png", p_35.1)
+
+# Gráfico de torta
+p_35.2 = comercio %>% 
+  arrange(desc(`[Comercio]`)) %>% 
+  mutate(prop = round(prop*100,1), 
+         ypos = cumsum(prop)-0.5*prop) %>% 
+  ggplot(aes(x = "", y = prop, fill = `[Comercio]`))+
+  geom_bar(stat = "identity", position = "stack")+
+  coord_polar("y", start = 0)+
+  theme_void()+
+  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
+
+# Guardar el gráfico: 
+ggsave("p_35.2.png", p_35.2)
+
+#Tabla word: 
+tab_df(comercio, file = "cuadro_comercio.doc")
+
+
 
 
 ##36. [Actividades programadas por las instituciones de la comuna]##
