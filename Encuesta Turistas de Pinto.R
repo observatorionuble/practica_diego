@@ -1,47 +1,14 @@
 #Encuesta a turistas de Pinto#
 
-# Observación: es importante para evitar confusiones, que al ejecutar una rutina se limpie el espacio de trabajo
-# por si hubieran datos precargados, el comando para ello es el siguiente: 
-
 rm(list = ls())
-
-
-## Observación: Sobre la carga de paquetes, lo mejor es hacer una función que cargue el paquete en caso de que 
-## esté instalado o que si no lo está, que lo instale de inmediato y lo vuelva a cargar 
-
-# La función que presento a continuación permite realizar este cometido: 
-
 load_pkg <- function(pack){
   create.pkg <- pack[!(pack %in% installed.packages()[, "Package"])]
   if (length(create.pkg))
     install.packages(create.pkg, dependencies = TRUE)
   sapply(pack, require, character.only = TRUE)
 }
-
-# De esta manera la forma correcta de cargar (e instalar un paquete) es: 
-
-# Nota que cargaré el paquete tidyverse, en lugar de dplyr, porque de hecho tidyverse es un paquete de otros paquetes similares
-
 paquetes = c("tidyverse", "sjPlot")
-
 load_pkg(paquetes)
-
-## Observación la carga de los datos siempre debe estar disponible en la misma rutina de cálculo,
-## sino se cae en el paseo innecesario de cargar manualmente los datos una y otra vez. 
-## La forma correcta de hacerlo es: 
-
-encuesta_turistas = readxl::read_excel("20211013_Encuesta a Turistas Pinto modificada.xlsx")
-
-
-names(encuesta_turistas)
-
-#Encuesta a turistas de Pinto#
-rm(list = ls())
-
-library(dplyr)
-library(tidyverse)
-library(sjPlot)
-library(ggplot2)
 encuesta_turistas = readxl::read_excel("20211013_Encuesta a Turistas Pinto modificada.xlsx")
 
 
@@ -64,7 +31,7 @@ p_1.1 = genero %>%
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
 
 # Para guardar el gráfico: 
-ggsave("p_1.2.png", p_1)
+ggsave("p_1.1.png", p_1.1)
 
 # Gráfico de torta
 p_1.2 = genero %>% 
@@ -78,7 +45,7 @@ p_1.2 = genero %>%
   geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
 
 # Para guardar el gráfico: 
-ggsave("p_1.2.png", p_2)
+ggsave("p_1.2.png", p_1.2)
 
 
 # Para crear una tabla compatible con word: 
@@ -110,11 +77,10 @@ p_2.2 = edad %>%
   geom_bar(stat = "identity", position = "stack")+
   coord_polar("y", start = 0)+
   theme_void()+
-  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=7)
+  geom_text(aes(y = ypos, label = paste0(prop,"%")), color = "white", size=4)
 
 # Guardar el gráfico: 
 ggsave("p_2.2.png", p_2)
-plot(p_2.2)
 
 #Tabla word: 
 tab_df(edad, file = "cuadro_edad.doc")
@@ -170,7 +136,7 @@ p_4.1 = ingresos %>%
   mutate(prop = round(prop*100,1)) %>% 
   ggplot(aes(x = `Indique el rango de ingresos que percibe su núcleo familiar`, y = prop, fill = `Indique el rango de ingresos que percibe su núcleo familiar`))+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 3)
 
 # Guardar el gráfico: 
 ggsave("p_4.1.png", p_4.1)
@@ -527,6 +493,7 @@ tab_df(educacion, file = "cuadro_educacion.doc")
 ##14. Podría indicar su estado civil##
 
 estado = encuesta_turistas %>%
+  filter(!is.na(`Podría indicar su estado civil`))%>%
   group_by(`Podría indicar su estado civil`) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
@@ -681,6 +648,7 @@ tab_df(pais, file = "cuadro_pais.doc")
 ##23. ¿Cuántas veces ha visitado la comuna##
 
 visitas = encuesta_turistas %>%
+  filter(!is.na(`¿Cuántas veces ha visitado la comuna`))%>%
   group_by(`¿Cuántas veces ha visitado la comuna`) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
@@ -758,6 +726,7 @@ tab_df(acompañantes, file = "cuadro_numero_de_acompañantes.doc")
 ##26. ¿Cuánta noches pernoctó en la comuna##
 
 noches = encuesta_turistas %>%
+  filter(!is.na(`¿Cuánta noches pernoctó en la comuna`)) %>%
   group_by(`¿Cuánta noches pernoctó en la comuna`) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
@@ -800,6 +769,7 @@ tab_df(noches, file = "cuadro_numero_de_noches.doc")
 ##30. [Alojamiento]##
 
 alojamiento = encuesta_turistas %>%
+  filter(`[Alojamiento]`!="N/A", !is.na(`[Alojamiento]`)) %>%
   group_by(`[Alojamiento]`) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
@@ -835,15 +805,10 @@ tab_df(alojamiento, file = "cuadro_alojamiento.doc")
 
 
 ##31. [Alimentación]##
-alimentacion<- encuesta_turistas %>%
-  select("[Alimentación]")%>%
-  filter("[Alimentación]"!="N/A")
-table(alimentacion)
-(prop.table(table (alojamiento)))*100
-names(which(table(alimentacion)==max(table(alimentacion))))
 
 alimentacion = encuesta_turistas %>%
   group_by(`[Alimentación]`) %>%
+  filter(`[Alimentación]`!="N/A", !is.na(`[Alimentación]`)) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -881,6 +846,7 @@ tab_df(alimentacion, file = "cuadro_alimentacion.doc")
 
 transporte = encuesta_turistas %>%
   group_by(`[Transporte]`) %>%
+  filter(`[Transporte]`!="N/A", !is.na(`[Transporte]`)) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -918,6 +884,7 @@ tab_df(transporte, file = "cuadro_transporte.doc")
 
 servicios = encuesta_turistas %>%
   group_by(`[Servicios complementarios]`) %>%
+  filter(`[Servicios complementarios]`!="N/A", !is.na(`[Servicios complementarios]`))
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -955,6 +922,7 @@ tab_df(servicios, file = "cuadro_servicios_complementarios.doc")
 
 nocturna = encuesta_turistas %>%
   group_by(`[Vida nocturna]`) %>%
+  filter(`[Vida nocturna]`!="N/A", !is.na(`[Vida nocturna]`)) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -992,6 +960,7 @@ tab_df(nocturna, file = "cuadro_vida_nocturna.doc")
 
 comercio = encuesta_turistas %>%
   group_by(`[Comercio]`) %>%
+  filter(`[Comercio]`!="N/A", !is.na(`[Comercio]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1029,6 +998,7 @@ tab_df(comercio, file = "cuadro_comercio.doc")
 
 actividades = encuesta_turistas %>%
   group_by(`[Actividades programadas por las instituciones de la comuna]`) %>%
+  filter(`[Actividades programadas por las instituciones de la comuna]`!="N/A", !is.na(`[Actividades programadas por las instituciones de la comuna]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1037,7 +1007,7 @@ p_36.1 = actividades %>%
   mutate(prop = round(prop*100,1)) %>% 
   ggplot(aes(x = `[Actividades programadas por las instituciones de la comuna]`, y = prop, fill = `[Actividades programadas por las instituciones de la comuna]`))+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 4)
 
 # Guardar el gráfico: 
 ggsave("p_36.1.png", p_36.1)
@@ -1067,6 +1037,7 @@ tab_df(actividades, file = "cuadro_actividades_programadas_por_la_comuna.doc")
 
 caminos = encuesta_turistas %>%
   group_by(`[Estado de caminos]`) %>%
+  filter(`[Estado de caminos]`!="N/A", !is.na(`[Estado de caminos]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1104,6 +1075,7 @@ tab_df(caminos, file = "cuadro_estado_de_los_caminos.doc")
 
 señalizacion = encuesta_turistas %>%
   group_by(`[Señalización vial]`) %>%
+  filter(`[Señalización vial]`!="N/A", !is.na(`[Señalización vial]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1141,6 +1113,7 @@ tab_df(señalizacion, file = "cuadro_señalizacion_vial.doc")
 
 señaleticat= encuesta_turistas %>%
   group_by(`[Señalética turística]`) %>%
+  filter(`[Señalética turística]`!="N/A", !is.na(`[Señalética turística]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1174,10 +1147,11 @@ tab_df(señaleticat, file = "cuadro_señaleticas_turisticas.doc")
 
 
 
-##40. [Accesos para personas con movilidad limitada]##
+##40. [Accesos para personas con movilidad limitada]## saque el "regular" con la r minuscula
 
 accesos= encuesta_turistas %>%
   group_by(`[Accesos para personas con movilidad limitada]`) %>%
+  filter(`[Accesos para personas con movilidad limitada]`!="regular")%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n)) %>%
   filter(`[Accesos para personas con movilidad limitada]`!="N/A")
@@ -1214,6 +1188,7 @@ tab_df(accesos, file = "cuadro_accesos_para_discapacitados.doc")
 
 paisaje= encuesta_turistas %>%
   group_by(`[Paisaje natural]`) %>%
+  filter(`[Paisaje natural]`!="N/A", !is.na(`[Paisaje natural]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1251,6 +1226,7 @@ tab_df(paisaje, file = "cuadro_paisaje_natural.doc")
 
 amabilidad= encuesta_turistas %>%
   group_by(`[Amabilidad de los residentes]`) %>%
+  filter(`[Amabilidad de los residentes]`!="N/A", !is.na(`[Amabilidad de los residentes]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1284,10 +1260,11 @@ tab_df(amabilidad, file = "cuadro_amabilidad_de_los_residentes.doc")
 
 
 
-##43. [Relación Precio - Calidad] revisar##
+##43. [Relación Precio - Calidad]##
 
 precio_calidad= encuesta_turistas %>%
   group_by(`[Relación Precio - Calidad]`) %>%
+  filter(`[Relación Precio - Calidad]`!="N/A", `[Relación Precio - Calidad]`!="p", !is.na(`[Relación Precio - Calidad]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1323,6 +1300,7 @@ tab_df(precio_calidad, file = "cuadro_precio_calidad.doc")
 
 limpieza= encuesta_turistas %>%
   group_by(`[Limpieza del entorno]`) %>%
+  filter(`[Limpieza del entorno]`!="N/A", !is.na(`[Limpieza del entorno]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1360,6 +1338,7 @@ tab_df(limpieza, file = "cuadro_limpieza_del_entorno.doc")
 
 mantencion= encuesta_turistas %>%
   group_by(`[Mantención de infraestructura pública]`) %>%
+  filter(`[Mantención de infraestructura pública]`!="N/A", !is.na(`[Mantención de infraestructura pública]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1397,6 +1376,7 @@ tab_df(mantencion, file = "cuadro_mantencion_de_infraestructura_publica.doc")
 
 seguridad= encuesta_turistas %>%
   group_by(`[Percepción de seguridad en la comuna]`) %>%
+  filter(`[Percepción de seguridad en la comuna]`!="N/A", !is.na(`[Percepción de seguridad en la comuna]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1434,11 +1414,12 @@ tab_df(seguridad, file = "cuadro_percepcion_de_seguridad.doc")
 
 salud= encuesta_turistas %>%
   group_by(`[Servicios de salud]`) %>%
+  filter(`[Servicios de salud]`!="N/A", !is.na(`[Servicios de salud]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
 # Gráfico de barras
-p_47.1 = seguridad %>%
+p_47.1 = salud %>%
   mutate(prop = round(prop*100,1)) %>% 
   ggplot(aes(x = `[Servicios de salud]`, y = prop, fill = `[Servicios de salud]`))+
   geom_col(col = "black")+
@@ -1475,11 +1456,12 @@ tab_df(seguridad, file = "cuadro_servicios_de_salud.doc")
 
 agricolas= encuesta_turistas %>%
   group_by(`[Actividades agrícolas]`) %>%
+  filter(!is.na(`[Actividades agrícolas]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
 # Gráfico de barras
-p_51.1 = seguridad %>%
+p_51.1 = agricolas %>%
   mutate(prop = round(prop*100,1)) %>% 
   ggplot(aes(x = `[Actividades agrícolas]`, y = prop, fill = `[Actividades agrícolas]`))+
   geom_col(col = "black")+
@@ -1512,6 +1494,7 @@ tab_df(agricolas, file = "cuadro_actividades_agricolas.doc")
 
 costumbristas= encuesta_turistas %>%
   group_by(`[Participar en fiestas costumbristas]`) %>%
+  filter(!is.na(`[Participar en fiestas costumbristas]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1549,6 +1532,7 @@ tab_df(costumbristas, file = "cuadro_participar_en_fiestas_costumbristas.doc")
 
 trajes= encuesta_turistas %>%
   group_by(`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`) %>%
+  filter(!is.na(`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1586,6 +1570,7 @@ tab_df(trajes, file = "cuadro_vestir_trajes_tradicionales.doc")
 
 caminata_ciclismo= encuesta_turistas %>%
   group_by(`[Caminatas y/o ciclísmo]`) %>%
+  filter(!is.na(`[Caminatas y/o ciclísmo]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1623,6 +1608,7 @@ tab_df(caminata_ciclismo, file = "cuadro_caminata_ciclismo.doc")
 
 pesca= encuesta_turistas %>%
   group_by(`[Pesca deportiva (Catch and release)]`) %>%
+  filter(!is.na(`[Pesca deportiva (Catch and release)]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1660,6 +1646,7 @@ tab_df(pesca, file = "cuadro_pesca_deportiva.doc")
 
 nauticos= encuesta_turistas %>%
   group_by(`[Práctica deportes naúticos]`) %>%
+  filter(!is.na(`[Práctica deportes naúticos]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1697,6 +1684,7 @@ tab_df(nauticos, file = "cuadro_deportes_nauticos.doc")
 
 platos= encuesta_turistas %>%
   group_by(`[Probar platos típicos o exclusivos de la zona]`) %>%
+  filter(!is.na(`[Probar platos típicos o exclusivos de la zona]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1734,6 +1722,7 @@ tab_df(platos, file = "cuadro_probar_platos_tipicos.doc")
 
 preparar= encuesta_turistas %>%
   group_by(`[Aprender a prepara platos típicos de la zona]`) %>%
+  filter(!is.na(`[Aprender a prepara platos típicos de la zona]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1771,6 +1760,7 @@ tab_df(preparar, file = "cuadro_preparar_platos_tipicos.doc")
 
 talleres= encuesta_turistas %>%
   group_by(`[Participar en talleres de artesanía]`) %>%
+  filter(!is.na(`[Participar en talleres de artesanía]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1808,6 +1798,7 @@ tab_df(talleres, file = "cuadro_talleres_de_artesania.doc")
 
 dormir= encuesta_turistas %>%
   group_by(`[Dormir en casa de una familia de la comunidad]`) %>%
+  filter(!is.na(`[Dormir en casa de una familia de la comunidad]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
@@ -1842,14 +1833,10 @@ tab_df(dormir, file = "cuadro_dormir_en_casa_de_una_familia_de_la_comunidad.doc"
 
 
 ##61. ¿Repetiría su visita##
-repetiria<- encuesta_turistas %>%
-  select("¿Repetiría su visita")
-table(repetiria)
-(prop.table(table (repetiria)))*100
-names(which(table(repetiria)==max(table(repetiria))))
 
 repetiria= encuesta_turistas %>%
   group_by(`¿Repetiría su visita`) %>%
+  filter(!is.na(`[Dormir en casa de una familia de la comunidad]`))%>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n))
 
