@@ -1,0 +1,58 @@
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left; ">value</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">n</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">prop</th>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Belleza natural del lugar</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">147</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.47</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Variedad de actividades turísticas</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">48</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.15</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Salud física y/o mental</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">36</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.11</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Práctica de algún deporte</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">27</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.09</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Visita a familiares y/o amigos</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">20</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.06</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Interés patrimonial y/o cultural</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.06</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Negocios Trabajo y/o Convención</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">10</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.03</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Otros</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">4</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.01</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Hospitalidad de residentes</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">3</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.01</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">Evento  programado (ferias - Festividades -etc)</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">2</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">0.01</td>
+</tr>
+</table>
+

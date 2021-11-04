@@ -1,0 +1,48 @@
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left; ">X.A.qué.se.dedica.actualmente</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">n</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">prop</th>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Desempleado o cesante</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">14</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.08</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Dueña (o) de casa</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.10</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Empresario (a)</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.10</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Estudiante</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">28</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.16</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Jubilado (a)</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">4</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.02</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Otro</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">2</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.01</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Trabajador dependiente</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">66</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.37</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">Trabajador independiente</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">28</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">0.16</td>
+</tr>
+</table>
+
