@@ -1,17 +1,80 @@
 #Encuesta a turistas de Pinto#
 
 rm(list = ls())
+
 load_pkg <- function(pack){
   create.pkg <- pack[!(pack %in% installed.packages()[, "Package"])]
   if (length(create.pkg))
     install.packages(create.pkg, dependencies = TRUE)
   sapply(pack, require, character.only = TRUE)
 }
-paquetes = c("tidyverse", "sjPlot")
+
+paquetes = c("tidyverse", "sjPlot", "reshape2", "dummy") 
+# Fíjate que agregué el paquete reshape2 para manipular los datos y abordar las preguntas de selección múltiple
+
 load_pkg(paquetes)
-encuesta_turistas = readxl::read_excel("20211013_Encuesta a Turistas Pinto modificada.xlsx")
+
+# Ojo que al cargar los datos noté que hay un folio duplicado, el cual procedí a eliminar al momento de cargar la data
+
+encuesta_turistas = readxl::read_excel("20211013_Encuesta a Turistas Pinto modificada.xlsx") %>% 
+  mutate(duplicado = duplicated(Correlativo)) %>% 
+  filter(duplicado == FALSE)
 
 
+## Análisis de respuestas de selección múltiple 
+
+# ¿Cuál o cuales medios de transporte fueron utilizados para llegar a este destino? Seleccione máximo 2 alternativas
+# Que aspectos lo motivaron para visitar pinto?
+# A través de que medios se informó acerca de la comuna?
+# En que época visito pinto?
+# Indique los servicios utilizados en su viaje
+# Cuantas personas lo acompañaron en su último viaje a la comuna?
+# Con quiénes realizó su último viaje?
+# Indique cual fue su su gasto promedio por persona en su última visita
+# Tipos de hospedaje utilizados en su estadía
+# Servicios de alimentación utilizados en su visita/estadía
+# Que lugares conoce en la comuna de pinto? 
+# Que actividades realizó durante su visita? 
+# Que actividades culturales conoce en la comuna de pinto? 
+# Existe alguna actividad, producto o servicio que quiso realizar o adquirir y no estaba disponible? De ser así, que producto o servicio no estuvo disponible?
+# Repetiría su visita, porque motivo?
+
+
+# Para analizar este tipo de preguntas tenemos básicamente dos opciones: 
+# a) Analizar el porcentaje de menciones
+# b) Analizar el porcentaje de personas que hizo mención a alguna de las alternativas. 
+
+
+# opción a): para analizar el porcentaje de menciones lo que tenemos que hacer es apilarlas todas: 
+
+data = melt(encuesta_turistas %>% select(Correlativo, `¿Qué aspectos lo motivaron para visitar Pinto`, `...22`, `...23`),
+                      id.vars = "Correlativo", 
+                      measure.vars = c("¿Qué aspectos lo motivaron para visitar Pinto", "...22", "...23"), na.rm = TRUE)
+
+#Nota que al apilar todas las respuestas ahora el conjunto de datos tiene 317 observaciones en lugar de las 178 originales. 
+
+menciones_ = data %>% 
+  group_by(value) %>% 
+  summarise(n = n()) %>% 
+  mutate(prop = n/sum(n)) %>% 
+  arrange(desc(prop))
+
+# Para generar un cuadro:  
+tab_df(menciones_, file = "cuadro_menciones.doc")
+
+# Opción b): Para analizar el porcentaje de casos (personas) que mencionó alguno de los motivos: 
+
+# Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
+dummies_ = data %>% 
+  select(value) %>% 
+  dummy(int = TRUE) 
+
+casos_ = cbind(Correlativo = data$Correlativo, dummies_) %>%  
+  group_by(Correlativo) %>% 
+  summarise_at(.vars = names(dummies_), .funs = ~sum(.)) %>% 
+  ungroup() %>% 
+  summarise_at(.vars = names(dummies_), .funs = ~sum(.)/n()) %>% 
+  pivot_longer(cols = everything(), names_to = "Motivaciones", values_to = "% de casos")
 
 ##ESTADISTICA DESCRIPTIVA##
 
