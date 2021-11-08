@@ -88,18 +88,19 @@ genero = encuesta_turistas %>%
 
 # Gráfico de barras con ggplot
 p_1.1 = genero %>%
-  mutate(prop = round(prop*100,1)) %>% 
+  mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `Género`, y = prop, fill = `Género`))+
   geom_col(col = "black")+
+  theme(legend.position = "none")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
-
+p_1.1
 # Para guardar el gráfico: 
 ggsave("p_1.1.png", p_1.1)
 
 # Gráfico de torta
 p_1.2 = genero %>% 
   arrange(desc(`Género`)) %>% 
-  mutate(prop = round(prop*100,1), 
+  mutate(prop = round(prop,1), 
          ypos = cumsum(prop)-0.5*prop) %>% 
   ggplot(aes(x = "", y = prop, fill = `Género`))+
   geom_bar(stat = "identity", position = "stack")+
@@ -123,11 +124,14 @@ edad = encuesta_turistas %>%
 
 # Gráfico de barras
 p_2.1 = edad %>%
-  mutate(prop = round(prop*100,1)) %>% 
+  mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `Edad`, y = prop, fill = `Edad`))+
   geom_col(col = "black")+
+  theme(legend.position = "none")
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  
 
+p_2.1
 # Guardar el gráfico: 
 ggsave("p_2.1.png", p_2.1)
 
@@ -162,8 +166,9 @@ ocupacion = encuesta_turistas %>%
 p_3.1 = ocupacion %>%
   mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `¿A qué se dedica actualmente`, y = prop, fill = `¿A qué se dedica actualmente`))+
+  theme(legend.position = "none")+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6, labs(x="¿A qué se dedica actualmente?"))
 
 # Guardar el gráfico: 
 ggsave("p_3.1.png", p_3.1)
@@ -490,7 +495,7 @@ mayoresm = encuesta_turistas %>%
 
 # Gráfico de barras
 p_12.1 = mayoresm %>%
-  mutate(prop = round(prop*100,1)) %>% 
+  mutate(prop = round(prop*1)) %>% 
   ggplot(aes(x = `Nº de adultos mayores mujeres (de 60 o más años)]`, y = prop, fill = `Nº de adultos mayores mujeres (de 60 o más años)]`))+
   geom_col(col = "black")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
@@ -501,7 +506,7 @@ ggsave("p_12.1.png", p_12.1)
 # Gráfico de torta
 p_12.2 = mayoresm %>% 
   arrange(desc(`Nº de adultos mayores mujeres (de 60 o más años)]`)) %>% 
-  mutate(prop = round(prop*100,1), 
+  mutate(prop = round(prop,1), 
          ypos = cumsum(prop)-0.5*prop) %>% 
   ggplot(aes(x = "", y = prop, fill = `Nº de adultos mayores mujeres (de 60 o más años)]`))+
   geom_bar(stat = "identity", position = "stack")+
