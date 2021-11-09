@@ -92,7 +92,8 @@ p_1.1 = genero %>%
   ggplot(aes(x = `Género`, y = prop, fill = `Género`))+
   geom_col(col = "black")+
   theme(legend.position = "none")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(title ="Género", x = "Género", y = "% del Total")
 p_1.1
 # Para guardar el gráfico: 
 ggsave("p_1.1.png", p_1.1)
@@ -132,6 +133,7 @@ p_2.1 = edad %>%
   
 
 p_2.1
+
 # Guardar el gráfico: 
 ggsave("p_2.1.png", p_2.1)
 
