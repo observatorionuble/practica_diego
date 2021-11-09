@@ -93,7 +93,8 @@ p_1.1 = genero %>%
   geom_col(col = "black")+
   theme(legend.position = "none")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
-  labs(title ="Género", x = "Género", y = "% del Total")
+  labs(title= "Género", x= "Género", y = "% del Total")
+
 p_1.1
 # Para guardar el gráfico: 
 ggsave("p_1.1.png", p_1.1)
@@ -128,8 +129,9 @@ p_2.1 = edad %>%
   mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `Edad`, y = prop, fill = `Edad`))+
   geom_col(col = "black")+
-  theme(legend.position = "none")
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  theme(legend.position = "none")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(title ="Edad de los ecuestados(as)", x = "Edad", y = "% del Total")
   
 
 p_2.1
@@ -168,10 +170,14 @@ ocupacion = encuesta_turistas %>%
 p_3.1 = ocupacion %>%
   mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `¿A qué se dedica actualmente`, y = prop, fill = `¿A qué se dedica actualmente`))+
-  theme(legend.position = "none")+
+  theme(text = element_text(angle=8))+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6, labs(x="¿A qué se dedica actualmente?"))
+  theme(legend.position = "none")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(title = "", x="Ocupación", y="% del Total")
 
+
+p_3.1
 # Guardar el gráfico: 
 ggsave("p_3.1.png", p_3.1)
 
@@ -203,10 +209,14 @@ ingresos = encuesta_turistas %>%
 
 # Gráfico de barras
 p_4.1 = ingresos %>%
-  mutate(prop = round(prop*100,1)) %>% 
+  mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `Indique el rango de ingresos que percibe su núcleo familiar`, y = prop, fill = `Indique el rango de ingresos que percibe su núcleo familiar`))+
+  theme(text = element_text(angle=8))+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 3)
+  theme(legend.position = "none")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 3)+
+  labs(title = "", x= "Ingresos", y="% del Total")
+p_4.1
 
 # Guardar el gráfico: 
 ggsave("p_4.1.png", p_4.1)
@@ -536,9 +546,12 @@ educacion = encuesta_turistas %>%
 p_13.1 = educacion %>%
   mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `¿Cuál es su nivel educativo`, y = prop, fill = `¿Cuál es su nivel educativo`))+
+  theme(legend.position = "none")+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(title= "¿Cúal es su nivel educativo?", x="¿Cúal es su nivel educativo?", y= "% del Total")
 
+p_13.1
 # Guardar el gráfico: 
 ggsave("p_13.1.png", p_13.1)
 
@@ -574,8 +587,11 @@ estado = encuesta_turistas %>%
 p_14.1 = estado %>%
   mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `Podría indicar su estado civil`, y = prop, fill = `Podría indicar su estado civil`))+
+  theme(legend.position = "none")+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(title = "¿Podira indicar su estado civil?", x= "Estado Civil", y= "% del Total")
+
 p_14.1
 # Guardar el gráfico: 
 ggsave("p_14.1.png", p_14.1)
@@ -597,7 +613,6 @@ ggsave("p_14.2.png", p_14.2)
 #Tabla word: 
 tab_df(estado, file = "cuadro_estadocivil.doc")
 
-fjhdsagfaugfsadfhjasg
 
 
 ##15. Indique si es Chileno o Extranjero##
@@ -760,7 +775,20 @@ motivo_visita = cbind(Correlativo = motivo$Correlativo, d20) %>%
 #Tabla word: 
 tab_df(motivo_visita, file = "motivo_visita.doc")
 
+p_20.1 = ggplot(aes(x=`Motivaciones`))
 
+  mutate('% de los casos' = round(prop,1)) %>% 
+  ggplot(aes(x = `¿Qué aspectos lo motivaron para visitar Pinto`, y = prop, fill = `¿Qué aspectos lo motivaron para visitar Pinto`))+
+  theme(text = element_text(angle=8))+
+  geom_col(col = "black")+
+  theme(legend.position = "none")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(title = "", x="Ocupación", y="% del Total")
+
+
+p_20.1
+# Guardar el gráfico: 
+ggsave("p_3.1.png", p_3.1)
 
 ##21 ¿A través de que medio/s se informó acerca de la comuna ##
 
@@ -833,11 +861,15 @@ visitas = encuesta_turistas %>%
 
 # Gráfico de barras
 p_23.1 = visitas %>%
-  mutate(prop = round(prop*100,1)) %>% 
+  mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `¿Cuántas veces ha visitado la comuna`, y = prop, fill = `¿Cuántas veces ha visitado la comuna`))+
+  theme(text = element_text(angle=0))+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  theme(legend.position = "none")+
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(y="% del Total", x="¿Cúantas veces ha visitado la comuna?")
 
+p_23.1
 # Guardar el gráfico: 
 ggsave("p_23.1.png", p_23.1)
 
