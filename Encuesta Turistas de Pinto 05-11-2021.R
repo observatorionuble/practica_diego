@@ -275,6 +275,15 @@ ggsave("p_5.2.png", p_5.2)
 
 #Tabla word: 
 tab_df(Nniños, file = "cuadro_Nniños.doc")
+lybrary(tables)
+
+tipos_de_acompañantes<- tabular(encuesta_turistas ~
+                                  niños))
+
+
+
+
+
 
 ##6. Nº de niñas (de 0 a 12 años)]##
 
@@ -826,12 +835,14 @@ epoca = encuesta_turistas %>%
 p_22.1 = epoca %>%
   mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `¿En qué época del año visitó Pinto`, y = prop, fill = `¿En qué época del año visitó Pinto`))+
+  theme(legend.position = "none")+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(x="¿En qué epoca del año visitó Pinto?", y= "% del Total")
 
 p_22.1
 # Guardar el gráfico: 
-ggsave("p_24.1.png", p_24.1)
+ggsave("p_22.1.png", p_22.1)
 
 # Gráfico de torta
 p_24.2 = epoca %>% 
@@ -943,11 +954,15 @@ noches = encuesta_turistas %>%
 
 # Gráfico de barras
 p_26.1 = noches %>%
-  mutate(prop = round(prop*100,1)) %>% 
+  mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `¿Cuánta noches pernoctó en la comuna`, y = prop, fill = `¿Cuánta noches pernoctó en la comuna`))+
+  theme(legend.position = "none")+
+  theme(text = element_text(angle=5))+
   geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
+  labs(x="¿Cuántas noches peronectó en la comuna?", y="% del Total")
 
+p_26.1
 # Guardar el gráfico: 
 ggsave("p_26.1.png", p_26.1)
 
