@@ -245,13 +245,12 @@ tab_df(ingresos, file = "cuadro_ingresos.doc")
 
 Nniños = encuesta_turistas %>%
   group_by(`Nº de niños (de 0 a 12 años)]`) %>%
-  filter()
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_5.1 = Nniños %>%
-  mutate(prop = round(prop*100,1)) %>% 
+  mutate(prop = round(prop,1)) %>% 
   ggplot(aes(x = `Nº de niños (de 0 a 12 años)]`, y = prop, fill = `Nº de niños (de 0 a 12 años)]`))+
   geom_col(col = "black")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
@@ -275,14 +274,6 @@ ggsave("p_5.2.png", p_5.2)
 
 #Tabla word: 
 tab_df(Nniños, file = "cuadro_Nniños.doc")
-lybrary(tables)
-
-tipos_de_acompañantes<- tabular(encuesta_turistas ~
-                                  niños))
-
-
-
-
 
 
 ##6. Nº de niñas (de 0 a 12 años)]##
@@ -290,7 +281,7 @@ tipos_de_acompañantes<- tabular(encuesta_turistas ~
 Nniñas = encuesta_turistas %>%
   group_by(`Nº de niñas (de 0 a 12 años)]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_6.1 = Nniñas %>%
@@ -327,7 +318,7 @@ tab_df(Nniñas, file = "cuadro_Nniñas.doc")
 adolecentesv = encuesta_turistas %>%
   group_by(`Nº de adolescentes varones (de 13 a 17 años)]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_7.1 = adolecentesv %>%
@@ -364,7 +355,7 @@ tab_df(adolecentesv, file = "cuadro_adolecentesV.doc")
 adolecentesd = encuesta_turistas %>%
   group_by(`Nº de adolescentes damas (de 13 a 17 años)]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_8.1 = adolecentesd %>%
@@ -401,7 +392,7 @@ tab_df(adolecentesd, file = "cuadro_adolecentesD.doc")
 adultosh = encuesta_turistas %>%
   group_by(`Nº de adultos hombres (de 18 a 59 años)]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_9.1 = adultosh %>%
@@ -438,7 +429,7 @@ tab_df(adultosh, file = "cuadro_adultosH.doc")
 adultosm = encuesta_turistas %>%
   group_by(`Nº de adultos mujeres (de 18 a 59 años)]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_10.1 = adultosm %>%
@@ -475,7 +466,7 @@ tab_df(adultosm, file = "cuadro_adultosM.doc")
 mayoresh = encuesta_turistas %>%
   group_by(`Nº de adultos mayores hombres (de 60 o más años)]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_11.1 = mayoresh %>%
@@ -512,7 +503,7 @@ tab_df(mayoresh, file = "cuadro_mayoresH.doc")
 mayoresm = encuesta_turistas %>%
   group_by(`Nº de adultos mayores mujeres (de 60 o más años)]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
 
 # Gráfico de barras
 p_12.1 = mayoresm %>%
