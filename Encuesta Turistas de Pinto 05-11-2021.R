@@ -775,43 +775,32 @@ motivo_visita = cbind(Correlativo = motivo$Correlativo, d20) %>%
 #Tabla word: 
 tab_df(motivo_visita, file = "motivo_visita.doc")
 
-p_20.1 = ggplot(aes(x=`Motivaciones`))
 
-  mutate('% de los casos' = round(prop,1)) %>% 
-  ggplot(aes(x = `¿Qué aspectos lo motivaron para visitar Pinto`, y = prop, fill = `¿Qué aspectos lo motivaron para visitar Pinto`))+
-  theme(text = element_text(angle=8))+
-  geom_col(col = "black")+
-  theme(legend.position = "none")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
-  labs(title = "", x="Ocupación", y="% del Total")
-
-
-p_20.1
 # Guardar el gráfico: 
 ggsave("p_3.1.png", p_3.1)
 
 ##21 ¿A través de que medio/s se informó acerca de la comuna ##
-
-
-informo = melt(encuesta_turistas %>% select(Correlativo, `¿A través de que medio/s se informó acerca de la comuna`),
+informo_comuna = melt(encuesta_turistas %>% select(Correlativo, `¿A través de que medio/s se informó acerca de la comuna`, `...25`, `...26`, `...27`),
               id.vars = "Correlativo", 
-              measure.vars = c("¿A través de que medio/s se informó acerca de la comuna"), na.rm = TRUE)
+              measure.vars = c("¿A través de que medio/s se informó acerca de la comuna", "...25", "...26", "...27"), na.rm = TRUE)
 
 
 # Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
-d21= informo %>% 
+d21= informo_comuna %>% 
   select(value) %>% 
   dummy(int = TRUE) 
 
-informo_comuna = cbind(Correlativo = informo$Correlativo, d21) %>%  
+informacion_sobre_comuna = cbind(Correlativo = informo_comuna$Correlativo, d21) %>%  
   group_by(Correlativo) %>% 
   summarise_at(.vars = names(d21), .funs = ~sum(.)) %>% 
   ungroup() %>% 
   summarise_at(.vars = names(d21), .funs = ~sum((.)/n()*100)) %>% 
-  pivot_longer(cols = everything(), names_to = "informo", values_to = "% de casos")
+  pivot_longer(cols = everything(), names_to = "Medios de Información", values_to = "% de casos")
 
 #Tabla word: 
-tab_df(informo_comuna, file = "informo_comuna.doc")
+tab_df(informacion_sobre_comuna, file = "informacion_sobre_comuna.doc")
+
+
 
 ##22 ¿En qué época del año visitó Pinto##
 
