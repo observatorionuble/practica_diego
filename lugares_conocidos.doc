@@ -1,0 +1,63 @@
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left; ">Lugares.conocidos.de.la.comuna</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">X..de.casos</th>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Centro.de.esquí.Termas.de.Chillán</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.57</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Cueva.de.Los.Pincheiras</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">32.39</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Laguna.del.Huemul</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">13.07</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Las.turbinas</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.57</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Los.Lleuques</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">35.23</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Los.peucos</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.57</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Nevados.de.Chillán</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">83.52</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Ninguna.de.las.anteriores</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">8.52</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Reserva.Nacional.Ñuble</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">25.57</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Río.Diguillín</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">23.30</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Salto.Los.Pellines</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">13.64</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Valle.de.Atacalco</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">15.91</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Valle.de.Shangrila</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">32.95</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">value_Valle.Las.Trancas</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">54.55</td>
+</tr>
+</table>
+

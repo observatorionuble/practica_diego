@@ -1,0 +1,35 @@
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left; ">Servicios.Alimenticios</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">X..de.casos</th>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Casa.de.familiares.o.amigos..no.utilizó.servicios.de.alimentación.</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">25.14</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Food.trucks.o.carros.de.comida</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">25.14</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_lugar.de.hospedaje</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.57</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Lugar.de.hospedaje</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">13.14</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Negocio</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.57</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Restaurantes.o.cocinerías</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">66.86</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">value_Supermercado..compra.de.insumos.para.cocinar.por.cuenta.propia.</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">40.57</td>
+</tr>
+</table>
+
