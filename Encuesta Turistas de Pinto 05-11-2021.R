@@ -1037,6 +1037,12 @@ tab_df(serivicios_de_alimentacion, file = "serivicios_de_alimentacion.doc")
 
 ##30. [Alojamiento]##
 
+intento = as.table(as.matrix(encuesta_turistas[,50:68]))
+class(intento)
+prop.table(intento)
+
+
+
 alojamiento = encuesta_turistas %>%
   filter(`[Alojamiento]`!="N/A", !is.na(`[Alojamiento]`)) %>%
   group_by(`[Alojamiento]`) %>%
@@ -1050,6 +1056,7 @@ p_30.1 = alojamiento %>%
   geom_col(col = "black")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
 
+p_30.1
 # Guardar el gráfico: 
 ggsave("p_30.1.png", p_30.1)
 
