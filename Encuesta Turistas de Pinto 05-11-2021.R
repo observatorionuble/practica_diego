@@ -779,6 +779,8 @@ tab_df(motivo_visita, file = "motivo_visita.doc")
 # Guardar el gráfico: 
 ggsave("p_3.1.png", p_3.1)
 
+
+
 ##21 ¿A través de que medio/s se informó acerca de la comuna ##
 informo_comuna = melt(encuesta_turistas %>% select(Correlativo, `¿A través de que medio/s se informó acerca de la comuna`, `...25`, `...26`, `...27`),
               id.vars = "Correlativo", 
@@ -884,44 +886,51 @@ tab_df(visitas, file = "cuadro_numerodevisitas.doc")
 
 
 
-##24. ¿Cuántas personas lo/a acompañaron en su último viaje a la comuna## sdfsdafadfasd
+##24. ¿Con quien o quienes realizó su último viaje?
+ultimo = melt(encuesta_turistas %>% select(Correlativo, `¿Con quien o quienes realizó su último viaje`, `...38`, `...39`),
+                 id.vars = "Correlativo", 
+                 measure.vars = c("¿Con quien o quienes realizó su último viaje", "...38", "...39"), na.rm = TRUE)
 
-acompañantes = encuesta_turistas %>%
-  group_by(`¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`) %>%
-  summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
 
-# Gráfico de barras
-p_24.1 = acompañantes %>%
-  mutate(prop = round(prop*100,1)) %>% 
-  ggplot(aes(x = `¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`, y = prop, fill = `¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`))+
-  geom_col(col = "black")+
-  geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)
+# Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
+d24= ultimo %>% 
+  select(value) %>% 
+  dummy(int = TRUE) 
 
-# Guardar el gráfico: 
-ggsave("p_24.1.png", p_24.1)
-
-# Gráfico de torta
-p_24.2 = acompañantes %>% 
-  arrange(desc(`¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`)) %>% 
-  mutate(prop = round(prop*100,1), 
-         ypos = cumsum(prop)-0.5*prop) %>% 
-  ggplot(aes(x = "", y = prop, fill = `¿Cuántas personas lo/a acompañaron en su último viaje a la comuna`))+
-  geom_bar(stat = "identity", position = "stack")+
-  coord_polar("y", start = 0)+
-  theme_void()+
-  geom_text(aes(y = prop, label = paste0(prop,"%")), color = "white", size=6)
-
-# Guardar el gráfico: 
-ggsave("p_24.2.png", p_24.2)
+acompañantes_ultimo_viaje = cbind(Correlativo = ultimo$Correlativo, d24) %>%  
+  group_by(Correlativo) %>% 
+  summarise_at(.vars = names(d24), .funs = ~sum(.)) %>% 
+  ungroup() %>% 
+  summarise_at(.vars = names(d24), .funs = ~sum((.)/n()*100)) %>% 
+  pivot_longer(cols = everything(), names_to = "Acompañantes en la visita", values_to = "% de casos")
 
 #Tabla word: 
-tab_df(acompañantes, file = "cuadro_numero_de_acompañantes.doc")
+tab_df(acompañantes_ultimo_viaje, file = "acompañantes_ultimo_viaje.doc")
 
 
 
 
-##25. stand by##
+
+##25. Indique los servicios utilizados en su viaje. ##
+servicios = melt(encuesta_turistas %>% select(Correlativo, `Indique los servicios utilizados en su viaje.`, `...30`, `...31`, `...32`, `...33`, `...34`),
+              id.vars = "Correlativo", 
+              measure.vars = c("Indique los servicios utilizados en su viaje.", "...30", "...31", "...32", "...33", "...34"), na.rm = TRUE)
+
+
+# Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
+d25= servicios %>% 
+  select(value) %>% 
+  dummy(int = TRUE) 
+
+servicios_utilizados = cbind(Correlativo = servicios$Correlativo, d25) %>%  
+  group_by(Correlativo) %>% 
+  summarise_at(.vars = names(d25), .funs = ~sum(.)) %>% 
+  ungroup() %>% 
+  summarise_at(.vars = names(d25), .funs = ~sum((.)/n()*100)) %>% 
+  pivot_longer(cols = everything(), names_to = "Servicios utilizados", values_to = "% de casos")
+
+#Tabla word: 
+tab_df(servicios_utilizados, file = "servicios_utilizados.doc")
 
 
 ##26. ¿Cuánta noches pernoctó en la comuna##
@@ -978,7 +987,50 @@ gasto_promedio = encuesta_turistas %>%
 
 
 
-##28 29 stand by##
+##28 Tipos de Hospedaje utilizados durante su estadía.##
+hospedaje = melt(encuesta_turistas %>% select(Correlativo, `Tipos de Hospedaje utilizados durante su estadía.`, `...43`, `...44`, `...45`),
+                      id.vars = "Correlativo", 
+                      measure.vars = c("Tipos de Hospedaje utilizados durante su estadía.", "...43", "...44", "...45"), na.rm = TRUE)
+
+
+# Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
+d28= hospedaje %>% 
+  select(value) %>% 
+  dummy(int = TRUE) 
+
+tipos_de_hospedaje = cbind(Correlativo = hospedaje$Correlativo, d28) %>%  
+  group_by(Correlativo) %>% 
+  summarise_at(.vars = names(d28), .funs = ~sum(.)) %>% 
+  ungroup() %>% 
+  summarise_at(.vars = names(d28), .funs = ~sum((.)/n()*100)) %>% 
+  pivot_longer(cols = everything(), names_to = "Tipos de Hospedaje", values_to = "% de casos")
+
+#Tabla word: 
+tab_df(tipos_de_hospedaje, file = "tipos_de_hospedaje.doc")
+
+
+
+
+###Servicios de Alimentación utilizados durante su visita/estadía.##
+servalimentos = melt(encuesta_turistas %>% select(Correlativo, `Servicios de Alimentación utilizados durante su visita/estadía.`, `...47`, `...48`, `...49`),
+                 id.vars = "Correlativo", 
+                 measure.vars = c("Servicios de Alimentación utilizados durante su visita/estadía.", "...47", "...48", "...49"), na.rm = TRUE)
+
+
+# Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
+d29= servalimentos %>% 
+  select(value) %>% 
+  dummy(int = TRUE) 
+
+serivicios_de_alimentacion = cbind(Correlativo = servalimentos$Correlativo, d29) %>%  
+  group_by(Correlativo) %>% 
+  summarise_at(.vars = names(d29), .funs = ~sum(.)) %>% 
+  ungroup() %>% 
+  summarise_at(.vars = names(d29), .funs = ~sum((.)/n()*100)) %>% 
+  pivot_longer(cols = everything(), names_to = "Servicios Alimenticios", values_to = "% de casos")
+
+#Tabla word: 
+tab_df(serivicios_de_alimentacion, file = "serivicios_de_alimentacion.doc")
 
 
 
@@ -1665,14 +1717,35 @@ tab_df(seguridad, file = "cuadro_servicios_de_salud.doc")
 
 
 
-##48 ##
+##48 ¿Qué lugares conoce en la Comuna de Pinto##
+lugares = melt(encuesta_turistas %>% select(Correlativo, `¿Qué lugares conoce en la Comuna de Pinto`, `...70`, `...71`, `...72`, `...73`, `...74`, `...75`, `...76`, `...77`, `...78`, `...79`, `...80`),
+                   id.vars = "Correlativo", 
+                   measure.vars = c("¿Qué lugares conoce en la Comuna de Pinto", "...70", "...71", "...72", "...73", "...74", "...75", "...76", "...77", "...78", "...79", "...80"), na.rm = TRUE)
+
+
+# Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
+d48= lugares %>% 
+  select(value) %>% 
+  dummy(int = TRUE) 
+
+lugares_conocidos= cbind(Correlativo = lugares$Correlativo, d48) %>%  
+  group_by(Correlativo) %>% 
+  summarise_at(.vars = names(d48), .funs = ~sum(.)) %>% 
+  ungroup() %>% 
+  summarise_at(.vars = names(d48), .funs = ~sum((.)/n()*100)) %>% 
+  pivot_longer(cols = everything(), names_to = "Lugares conocidos de la comuna", values_to = "% de casos")
+
+#Tabla word: 
+tab_df(lugares_conocidos, file = "lugares_conocidos.doc")
+
+
 
 
 ##49. ¿Qué actividades realizó durante su visita? ##
 
-actividades = melt(encuesta_turistas %>% select(Correlativo, `¿Qué actividades realizó durante su visita?`, `...54`, `...55`, `...56`, `...57`, `...58`, `...59`),
+actividades = melt(encuesta_turistas %>% select(Correlativo, `¿Qué actividades realizó durante su visita?`, `...82`, `...83`, `...84`, `...85`, `...86`, `...87`),
               id.vars = "Correlativo", 
-              measure.vars = c("¿Qué actividades realizó durante su visita?", "...54", "...55", "...56", "...57", "...58", "...59"), na.rm = TRUE)
+              measure.vars = c("¿Qué actividades realizó durante su visita?", "...82", "...83", "...84", "...85", "...86", "...87"), na.rm = TRUE)
 
 
 # Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
@@ -1690,7 +1763,31 @@ actividades_realizadas = cbind(Correlativo = actividades$Correlativo, d49) %>%
 #Tabla word: 
 tab_df(actividades_realizadas, file = "actividades_realizadas.doc")
 
-## 50 stand by
+
+
+
+## 50 ¿Qué actividades culturales conoce en la Comuna de Pinto ##
+culturales = melt(encuesta_turistas %>% select(Correlativo, `¿Qué actividades culturales conoce en la Comuna de Pinto`, `...89`, `...90`, `...91`, `...92`, `...93`, `...94`, `...95`, `...96`),
+                   id.vars = "Correlativo", 
+                   measure.vars = c("¿Qué actividades culturales conoce en la Comuna de Pinto", "...89", "...90", "...91", "...92", "...93", "...94", "...95", "...96"), na.rm = TRUE)
+
+
+# Primero crearé variables dummy que tomarán el valor de 0 o 1, dependiendo de si el encuestado hizo mención a cada uno de los motivos de viaje: 
+d50= culturales %>% 
+  select(value) %>% 
+  dummy(int = TRUE) 
+
+actividades_culturales = cbind(Correlativo = culturales$Correlativo, d50) %>%  
+  group_by(Correlativo) %>% 
+  summarise_at(.vars = names(d50), .funs = ~sum(.)) %>% 
+  ungroup() %>% 
+  summarise_at(.vars = names(d50), .funs = ~sum((.)/n()*100)) %>% 
+  pivot_longer(cols = everything(), names_to = "Actividades Culturales", values_to = "% de casos")
+
+#Tabla word: 
+tab_df(actividades_culturales, file = "actividades_culturales.doc")
+
+
 
 
 

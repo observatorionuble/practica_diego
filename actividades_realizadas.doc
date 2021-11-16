@@ -1,0 +1,43 @@
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left; ">Actividades</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">X..de.casos</th>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Bikepark</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">2.30</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Canopy</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">5.75</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Deportes.de.nieve</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">28.74</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Descanso.familiar</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">82.76</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Escalada</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">2.30</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Otros</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">4.60</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Termas</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">24.14</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Trekking.Senderismo</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">32.18</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">value_Turismo.Rural</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">20.11</td>
+</tr>
+</table>
+

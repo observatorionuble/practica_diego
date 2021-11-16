@@ -1,0 +1,27 @@
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left; ">Acompañantes.en.la.visita</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">X..de.casos</th>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Amigos.as.</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">16.48</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compañeros..as..de.trabajo</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.57</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Familiares</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">71.02</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Pareja</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">10.80</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">value_Viajé.solo..a.</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">3.41</td>
+</tr>
+</table>
+

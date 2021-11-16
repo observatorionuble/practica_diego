@@ -4,28 +4,8 @@
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">X..de.casos</th>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Arriendo.de..equipamiento.Turístico</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Arriendo.de..equipos.turísticos</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_arriendo.de.equipamiento.turístico</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">1.36</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Arriendo.de.equipamiento.turístico</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">21.77</td>
-</tr>
-<tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Arriendo.de.Equipamiento.turístico</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">15.65</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Arriendod.eequipamiento.turístico.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">41.50</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Auto</td>
@@ -36,104 +16,16 @@
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Cabañas.y.esquiar</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compra..de.artesanías.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compra.de..artesanías.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compra.de.artesanía.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">2.72</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compra.de.artesanías...souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">2.04</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compra.de.artesanías..souvenir</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Cabañas.y.Esquiar</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compra.de.artesanías.sourvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">12.24</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_compra.de.artesanías.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">9.52</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Compra.de.artesanías.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">10.20</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_comprade.artesanías.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Comprade.artesanías.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Comprade.artesanías.souvenir..arriendo.de.equiamiento.turístico</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_compras.de.artesanías.sourenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_compras.de.artesanías.souvenir</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_esparcimiento..bares..pubs..discotecas.o.centros.nocturnos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares..pubs..discotecas.o.centros.nocturnos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares..pubs.discotecas.o.centros.nocturnos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">1.36</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares..pubs..discotecas.o.centros.nocturnos..1</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares.pubs.discotecas.o.centros.nocturnos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">3.40</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares...pubs..discotecas.o.centros.nocturnos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">42.18</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares...pubs...discotecas.o.centros.nocturnos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">6.80</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares...pubs...discotecas.o.centros.nocturnos...Arriendo.de.equipamiento.turístico</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">1.36</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares.pubs.discotecas.o.centros.nocturnos..1</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares..pubs..discotecas.o.centros.nocturnos..2</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">6.12</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Esparcimiento..Bares..pubs..discotecas.o.centros.nocturnos..3</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">23.81</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">46.26</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Nada</td>
@@ -156,47 +48,15 @@
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Servicios.de.guiados..tour.operadores..guías.de.turismo..excurciones.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">1.36</td>
-</tr>
-<tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Servicios.de.guiados..tour.operadores...guías.de.turismo...excursiones.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">4.08</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Servicios.de.guiados..tour.operadores...uías..de..turismo..excursiones.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Servicios.de.guiados..tour.operadores..guías.de.turísmo..excursiones.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Transporte.turístico.privado..Transfer..arriendo.devehículos..Paseo.náuticos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Transporte.turístico.privado..Transfer...arriendo.de.vehículos..paseos.nauticos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Transporte.turístico.privado..Transfer...arriendo.de.vehículos..paseos.náuticos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">6.80</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Transporte.turístico.privado..Transfer...arriendo.de.vehículos...paseos.náuticos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">1.36</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Transporte.turístico.privado..transfet..arriendo.de.vehículos..paseos.náuticos.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">1.36</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">8.84</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Transporte.turístico.público..Buses.de.recorrido...taxis.</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">4.08</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">value_Transporte.turítico.público..busesde.recorrido..taxis.</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.68</td>
 </tr>
 <tr>
