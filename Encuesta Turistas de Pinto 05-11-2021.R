@@ -1452,10 +1452,11 @@ tab_df(señaleticat, file = "cuadro_señaleticas_turisticas.doc")
 
 accesos= encuesta_turistas %>%
   group_by(`[Accesos para personas con movilidad limitada]`) %>%
+  filter(`[Accesos para personas con movilidad limitada]`!="N/A", !is.na(`[Paisaje natural]`))%>%
   filter(`[Accesos para personas con movilidad limitada]`!="regular")%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100) %>%
-  filter(`[Accesos para personas con movilidad limitada]`!="N/A")
+  mutate(prop= n/sum(n)*100)
+ 
 
 acc<-accesos %>% select(-n)
 tab_df(acc, file = "acc.doc")
