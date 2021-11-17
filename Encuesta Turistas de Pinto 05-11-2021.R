@@ -1037,17 +1037,14 @@ tab_df(serivicios_de_alimentacion, file = "serivicios_de_alimentacion.doc")
 
 ##30. [Alojamiento]##
 
-intento = as.table(as.matrix(encuesta_turistas[,50:68]))
-class(intento)
-prop.table(intento)
-
-
 
 alojamiento = encuesta_turistas %>%
   filter(`[Alojamiento]`!="N/A", !is.na(`[Alojamiento]`)) %>%
   group_by(`[Alojamiento]`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+aloj<-alojamiento %>% select(-n)
+tab_df(aloj, file = "aloj.doc")
 
 # Gráfico de barras
 p_30.1 = alojamiento %>%
@@ -1086,7 +1083,10 @@ alimentacion = encuesta_turistas %>%
   group_by(`[Alimentación]`) %>%
   filter(`[Alimentación]`!="N/A", !is.na(`[Alimentación]`)) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+alim<-alimentacion %>% select(-n)
+tab_df(alim, file = "alim.doc")
 
 # Gráfico de barras
 p_31.1 = alimentacion %>%
@@ -1124,7 +1124,10 @@ transporte = encuesta_turistas %>%
   group_by(`[Transporte]`) %>%
   filter(`[Transporte]`!="N/A", !is.na(`[Transporte]`)) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+trans<-transporte %>% select(-n)
+tab_df(trans, file = "trans.doc")
 
 # Gráfico de barras
 p_32.1 = transporte %>%
@@ -1158,12 +1161,16 @@ tab_df(transporte, file = "cuadro_transporte.doc")
 
 ##33. [Servicios complementarios]##
 
-servicios = encuesta_turistas %>%
+servicios = encuesta_turistas%>%
   group_by(`[Servicios complementarios]`) %>%
   filter(`[Servicios complementarios]`!="N/A", !is.na(`[Servicios complementarios]`))
-  summarise(n=n()) %>%
+  summarise(n=n())%>%
   mutate(prop= n/sum(n))
-
+  
+serv<-servicios %>% select(-n)
+tab_df(serv, file = "serv.doc")
+  
+  
 # Gráfico de barras
 p_33.1 = servicios %>%
   mutate(prop = round(prop*100,1)) %>% 
@@ -1200,7 +1207,9 @@ nocturna = encuesta_turistas %>%
   group_by(`[Vida nocturna]`) %>%
   filter(`[Vida nocturna]`!="N/A", !is.na(`[Vida nocturna]`)) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+noc<-nocturna %>% select(-n)
+tab_df(noc, file = "noc.doc")
 
 # Gráfico de barras
 p_34.1 = nocturna %>%
@@ -1238,7 +1247,10 @@ comercio = encuesta_turistas %>%
   group_by(`[Comercio]`) %>%
   filter(`[Comercio]`!="N/A", !is.na(`[Comercio]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+com<-comercio %>% select(-n)
+tab_df(com, file = "com.doc")
 
 # Gráfico de barras
 p_35.1 = comercio %>%
@@ -1276,7 +1288,11 @@ actividades = encuesta_turistas %>%
   group_by(`[Actividades programadas por las instituciones de la comuna]`) %>%
   filter(`[Actividades programadas por las instituciones de la comuna]`!="N/A", !is.na(`[Actividades programadas por las instituciones de la comuna]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+activ<-actividades %>% select(-n)
+tab_df(activ, file = "activ.doc")
+
 
 # Gráfico de barras
 p_36.1 = actividades %>%
@@ -1315,7 +1331,10 @@ caminos = encuesta_turistas %>%
   group_by(`[Estado de caminos]`) %>%
   filter(`[Estado de caminos]`!="N/A", !is.na(`[Estado de caminos]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+cam<-caminos %>% select(-n)
+tab_df(cam, file = "cam.doc")
 
 # Gráfico de barras
 p_37.1 = caminos %>%
@@ -1353,7 +1372,10 @@ señalizacion = encuesta_turistas %>%
   group_by(`[Señalización vial]`) %>%
   filter(`[Señalización vial]`!="N/A", !is.na(`[Señalización vial]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+seña<-señalizacion %>% select(-n)
+tab_df(seña, file = "seña.doc")
 
 # Gráfico de barras
 p_38.1 = señalizacion %>%
@@ -1391,7 +1413,10 @@ señaleticat= encuesta_turistas %>%
   group_by(`[Señalética turística]`) %>%
   filter(`[Señalética turística]`!="N/A", !is.na(`[Señalética turística]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+señalet<-señaleticat %>% select(-n)
+tab_df(señalet, file = "señalet.doc")
 
 # Gráfico de barras
 p_39.1 = señaleticat %>%
@@ -1429,8 +1454,11 @@ accesos= encuesta_turistas %>%
   group_by(`[Accesos para personas con movilidad limitada]`) %>%
   filter(`[Accesos para personas con movilidad limitada]`!="regular")%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)) %>%
+  mutate(prop= n/sum(n)*100) %>%
   filter(`[Accesos para personas con movilidad limitada]`!="N/A")
+
+acc<-accesos %>% select(-n)
+tab_df(acc, file = "acc.doc")
 
 # Gráfico de barras
 p_40.1 = accesos %>%
@@ -1466,7 +1494,11 @@ paisaje= encuesta_turistas %>%
   group_by(`[Paisaje natural]`) %>%
   filter(`[Paisaje natural]`!="N/A", !is.na(`[Paisaje natural]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+pai<-paisaje %>% select(-n)
+tab_df(pai, file = "pai.doc")
+
 
 # Gráfico de barras
 p_41.1 = paisaje %>%
@@ -1504,7 +1536,10 @@ amabilidad= encuesta_turistas %>%
   group_by(`[Amabilidad de los residentes]`) %>%
   filter(`[Amabilidad de los residentes]`!="N/A", !is.na(`[Amabilidad de los residentes]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+ama<-amabilidad %>% select(-n)
+tab_df(ama, file = "pai.doc")
 
 # Gráfico de barras
 p_42.1 = amabilidad %>%
@@ -1542,7 +1577,10 @@ precio_calidad= encuesta_turistas %>%
   group_by(`[Relación Precio - Calidad]`) %>%
   filter(`[Relación Precio - Calidad]`!="N/A", `[Relación Precio - Calidad]`!="p", !is.na(`[Relación Precio - Calidad]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+pre<-precio_calidad %>% select(-n)
+tab_df(pre, file = "pre.doc")
 
 # Gráfico de barras
 p_43.1 = precio_calidad %>%
@@ -1578,7 +1616,10 @@ limpieza= encuesta_turistas %>%
   group_by(`[Limpieza del entorno]`) %>%
   filter(`[Limpieza del entorno]`!="N/A", !is.na(`[Limpieza del entorno]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+lim<-limpieza %>% select(-n)
+tab_df(lim, file = "lim.doc")
 
 # Gráfico de barras
 p_44.1 = limpieza %>%
@@ -1616,7 +1657,10 @@ mantencion= encuesta_turistas %>%
   group_by(`[Mantención de infraestructura pública]`) %>%
   filter(`[Mantención de infraestructura pública]`!="N/A", !is.na(`[Mantención de infraestructura pública]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+man<-mantencion %>% select(-n)
+tab_df(man, file = "man.doc")
 
 # Gráfico de barras
 p_45.1 = mantencion %>%
@@ -1654,7 +1698,11 @@ seguridad= encuesta_turistas %>%
   group_by(`[Percepción de seguridad en la comuna]`) %>%
   filter(`[Percepción de seguridad en la comuna]`!="N/A", !is.na(`[Percepción de seguridad en la comuna]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+seg<-seguridad %>% select(-n)
+tab_df(seg, file = "seg.doc")
+
 
 # Gráfico de barras
 p_46.1 = seguridad %>%
@@ -1692,7 +1740,11 @@ salud= encuesta_turistas %>%
   group_by(`[Servicios de salud]`) %>%
   filter(`[Servicios de salud]`!="N/A", !is.na(`[Servicios de salud]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+sal<-salud %>% select(-n)
+tab_df(sal, file = "sal.doc")
+
 
 # Gráfico de barras
 p_47.1 = salud %>%
