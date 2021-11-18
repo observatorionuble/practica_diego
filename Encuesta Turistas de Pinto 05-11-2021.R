@@ -1857,7 +1857,11 @@ agricolas= encuesta_turistas %>%
   group_by(`[Actividades agrícolas]`) %>%
   filter(!is.na(`[Actividades agrícolas]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+agr<-agricolas %>% select(-n)
+tab_df(agr, file = "agr.doc")
+
 
 # Gráfico de barras
 p_51.1 = agricolas %>%
@@ -1895,7 +1899,10 @@ costumbristas= encuesta_turistas %>%
   group_by(`[Participar en fiestas costumbristas]`) %>%
   filter(!is.na(`[Participar en fiestas costumbristas]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+cos<-costumbristas %>% select(-n)
+tab_df(cos, file = "cos.doc")
 
 # Gráfico de barras
 p_52.1 = costumbristas %>%
@@ -1933,7 +1940,10 @@ trajes= encuesta_turistas %>%
   group_by(`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`) %>%
   filter(!is.na(`[Vestir trajes tradicionales (aunque se para una sessión de fotos)]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+tra<-trajes %>% select(-n)
+tab_df(tra, file = "tra.doc")
 
 # Gráfico de barras
 p_53.1 = trajes %>%
@@ -1971,7 +1981,10 @@ caminata_ciclismo= encuesta_turistas %>%
   group_by(`[Caminatas y/o ciclísmo]`) %>%
   filter(!is.na(`[Caminatas y/o ciclísmo]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+cami<-caminata_ciclismo %>% select(-n)
+tab_df(cami, file = "cami.doc")
 
 # Gráfico de barras
 p_54.1 = caminata_ciclismo %>%
@@ -2009,7 +2022,10 @@ pesca= encuesta_turistas %>%
   group_by(`[Pesca deportiva (Catch and release)]`) %>%
   filter(!is.na(`[Pesca deportiva (Catch and release)]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+pes<-pesca %>% select(-n)
+tab_df(pes, file = "pes.doc")
 
 # Gráfico de barras
 p_55.1 = pesca %>%
@@ -2047,7 +2063,11 @@ nauticos= encuesta_turistas %>%
   group_by(`[Práctica deportes naúticos]`) %>%
   filter(!is.na(`[Práctica deportes naúticos]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+nau<-nauticos %>% select(-n)
+tab_df(nau, file = "nau.doc")
+
 
 # Gráfico de barras
 p_56.1 = nauticos %>%
@@ -2085,7 +2105,10 @@ platos= encuesta_turistas %>%
   group_by(`[Probar platos típicos o exclusivos de la zona]`) %>%
   filter(!is.na(`[Probar platos típicos o exclusivos de la zona]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+pla<-platos %>% select(-n)
+tab_df(pla, file = "pla.doc")
 
 # Gráfico de barras
 p_57.1 = platos %>%
@@ -2123,7 +2146,10 @@ preparar= encuesta_turistas %>%
   group_by(`[Aprender a prepara platos típicos de la zona]`) %>%
   filter(!is.na(`[Aprender a prepara platos típicos de la zona]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+prep<-preparar %>% select(-n)
+tab_df(prep, file = "prep.doc")
 
 # Gráfico de barras
 p_58.1 = preparar %>%
@@ -2161,7 +2187,10 @@ talleres= encuesta_turistas %>%
   group_by(`[Participar en talleres de artesanía]`) %>%
   filter(!is.na(`[Participar en talleres de artesanía]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+tall<-talleres %>% select(-n)
+tab_df(tall, file = "tall.doc")
 
 # Gráfico de barras
 p_59.1 = talleres %>%
@@ -2199,7 +2228,10 @@ dormir= encuesta_turistas %>%
   group_by(`[Dormir en casa de una familia de la comunidad]`) %>%
   filter(!is.na(`[Dormir en casa de una familia de la comunidad]`))%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
+
+dor<-dormir %>% select(-n)
+tab_df(dor, file = "dor.doc")
 
 # Gráfico de barras
 p_60.1 = dormir %>%
