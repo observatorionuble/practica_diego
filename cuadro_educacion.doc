@@ -5,24 +5,24 @@
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">prop</th>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Educación básica/primaria</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">3</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.02</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Educación superior/terciaria</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">72</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">40.68</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Educación media/secundaria</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">64</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.36</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">36.16</td>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Educación superior/terciaria</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">72</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.41</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Maestría o doctorado</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">38</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">21.47</td>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">Maestría o doctorado</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">38</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">0.21</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">Educación básica/primaria</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">3</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">1.69</td>
 </tr>
 </table>
 

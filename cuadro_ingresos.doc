@@ -5,44 +5,39 @@
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">prop</th>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $1.129.501 y $1.673.000</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">14</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.08</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $1.673.001 y $2.362.500</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">21</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.12</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $2.362.501 y $4.595.500</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">23</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.13</td>
-</tr>
-<tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $443.001 y $730.500</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">43</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.24</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $730.501 y $1.129.500</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.10</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">24.29</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Menor o igual a $443.000</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">30</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.17</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">16.95</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Sobre $4.595.500</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">26</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">0.15</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">14.69</td>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">NA</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">2</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">0.01</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $2.362.501 y $4.595.500</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">23</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">12.99</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $1.673.001 y $2.362.500</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">21</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">11.86</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Entre $730.501 y $1.129.500</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">10.17</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">Entre $1.129.501 y $1.673.000</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">14</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">7.91</td>
 </tr>
 </table>
 

@@ -164,7 +164,9 @@ tab_df(edad, file = "cuadro_edad.doc")
 ocupacion = encuesta_turistas %>%
   group_by(`¿A qué se dedica actualmente`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100)
+  mutate(prop= n/sum(n)*100)%>%
+  arrange(desc(prop))%>%
+  filter(`¿A qué se dedica actualmente`!="NA")
 
 # Gráfico de barras
 p_3.1 = ocupacion %>%
@@ -205,7 +207,9 @@ tab_df(ocupacion, file = "cuadro_ocupacion.doc")
 ingresos = encuesta_turistas %>%
   group_by(`Indique el rango de ingresos que percibe su núcleo familiar`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100)
+  mutate(prop= n/sum(n)*100)%>%
+  arrange(desc(prop))%>%
+  filter(`Indique el rango de ingresos que percibe su núcleo familiar`!="NA")
 
 # Gráfico de barras
 p_4.1 = ingresos %>%
@@ -540,7 +544,9 @@ tab_df(mayoresm, file = "cuadro_mayoresM.doc")
 educacion = encuesta_turistas %>%
   group_by(`¿Cuál es su nivel educativo`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100)
+  mutate(prop= n/sum(n)*100)%>%
+  arrange(desc(prop))
+
 
 # Gráfico de barras
 p_13.1 = educacion %>%
@@ -581,7 +587,8 @@ estado = encuesta_turistas %>%
   filter(!is.na(`Podría indicar su estado civil`))%>%
   group_by(`Podría indicar su estado civil`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100)
+  mutate(prop= n/sum(n)*100)%>%
+  arrange(desc(prop))
  
 # Gráfico de barras
 p_14.1 = estado %>%
@@ -656,8 +663,11 @@ tab_df(nacionalidad, file = "cuadro_nacionalidad.doc")
 
 ciudad = encuesta_turistas %>%
   group_by(`Especifique su ciudad de residencia`) %>%
+  filter(`Especifique su ciudad de residencia`!="NA")%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100)
+  mutate(prop= n/sum(n)*100)%>% 
+  arrange(desc(prop))
+  
 
 # Gráfico de barras
 p_16.1 = ciudad %>%
@@ -769,8 +779,9 @@ motivo_visita = cbind(Correlativo = motivo$Correlativo, d20) %>%
   group_by(Correlativo) %>% 
   summarise_at(.vars = names(d20), .funs = ~sum(.)) %>% 
   ungroup() %>% 
-  summarise_at(.vars = names(d20), .funs = ~sum((.)/n()*100)) %>% 
+  summarise_at(.vars = names(d20), .funs = ~sum((.)/n()*100))%>%
   pivot_longer(cols = everything(), names_to = "Motivaciones", values_to = "% de casos")
+
   
 #Tabla word: 
 tab_df(motivo_visita, file = "motivo_visita.doc")
@@ -811,7 +822,8 @@ epoca = encuesta_turistas %>%
   filter(`¿En qué época del año visitó Pinto`!="i9")%>%
   filter(`¿En qué época del año visitó Pinto`!="Verano (Diciembre a febrero), Invierno (Junio a Agosto)")%>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100)
+  mutate(prop= n/sum(n)*100)%>%
+  arrange(desc(prop))
 
 # Gráfico de barras
 p_22.1 = epoca %>%
@@ -850,7 +862,10 @@ visitas = encuesta_turistas %>%
   filter(!is.na(`¿Cuántas veces ha visitado la comuna`))%>%
   group_by(`¿Cuántas veces ha visitado la comuna`) %>%
   summarise(n=n()) %>%
-  mutate(prop= n/sum(n)*100)
+  mutate(prop= n/sum(n)*100)%>%
+  arrange(desc(prop))%>%
+  filter(`¿Cuántas veces ha visitado la comuna`!="NA")
+ 
 
 # Gráfico de barras
 p_23.1 = visitas %>%
@@ -939,7 +954,8 @@ noches = encuesta_turistas %>%
   filter(!is.na(`¿Cuánta noches pernoctó en la comuna`)) %>%
   group_by(`¿Cuánta noches pernoctó en la comuna`) %>%
   summarise(n=n()) %>%
-  mutate(prop= (n/sum(n))*100)
+  mutate(prop= (n/sum(n))*100)%>%
+  
 
 # Gráfico de barras
 p_26.1 = noches %>%
