@@ -955,6 +955,7 @@ noches = encuesta_turistas %>%
   group_by(`¿Cuánta noches pernoctó en la comuna`) %>%
   summarise(n=n()) %>%
   mutate(prop= (n/sum(n))*100)%>%
+  arrange(desc(prop))
   
 
 # Gráfico de barras
