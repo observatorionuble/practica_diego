@@ -1182,7 +1182,7 @@ servicios = encuesta_turistas%>%
   group_by(`[Servicios complementarios]`) %>%
   filter(`[Servicios complementarios]`!="N/A", !is.na(`[Servicios complementarios]`))
   summarise(n=n())%>%
-  mutate(prop= n/sum(n))
+  mutate(prop= n/sum(n)*100)
   
 serv<-servicios %>% select(-n)
 tab_df(serv, file = "serv.doc")
