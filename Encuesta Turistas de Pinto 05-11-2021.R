@@ -863,15 +863,15 @@ visitas = encuesta_turistas %>%
   group_by(`¿Cuántas veces ha visitado la comuna`) %>%
   summarise(n=n()) %>%
   mutate(prop= n/sum(n)*100)%>%
-  arrange(desc(prop))%>%
+  arrange(prop)%>%
   filter(`¿Cuántas veces ha visitado la comuna`!="NA")
  
 
 # Gráfico de barras
 p_23.1 = visitas %>%
   mutate(prop = round(prop,1)) %>% 
+  arrange(`¿Cuántas veces ha visitado la comuna`) %>%
   ggplot(aes(x = `¿Cuántas veces ha visitado la comuna`, y = prop, fill = `¿Cuántas veces ha visitado la comuna`))+
-  theme(text = element_text(angle=0))+
   geom_col(col = "black")+
   theme(legend.position = "none")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
