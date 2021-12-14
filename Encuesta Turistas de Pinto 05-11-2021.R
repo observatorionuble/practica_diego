@@ -598,6 +598,7 @@ p_14.1 = estado %>%
   geom_col(col = "black")+
   geom_text(aes(y = prop, label = paste0(prop, "%")), color = "black", size = 6)+
   labs(title = "¿Podira indicar su estado civil?", x= "Estado Civil", y= "% del Total")
+  
 
 p_14.1
 # Guardar el gráfico: 
